@@ -337,72 +337,37 @@
             margin-bottom: 48px;
         }
 
-        /* Date Picker */
-        .date-picker {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+        /* Session Display */
+        .session-display {
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            background: rgba(235, 117, 37, 0.04);
             margin-bottom: 48px;
         }
 
-        .date-card {
-            border: 2px solid rgba(14, 14, 14, 0.1);
-            border-radius: 12px;
-            padding: 24px 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: var(--color-bg);
-        }
-
-        .date-card:hover {
-            border-color: rgba(14, 14, 14, 0.25);
-        }
-
-        .date-card.selected {
-            border-color: var(--color-accent);
-            background: rgba(235, 117, 37, 0.04);
-        }
-
-        .date-day {
+        .session-label {
             font-size: 13px;
             font-weight: 500;
             color: var(--color-muted);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
-        .date-number {
+        .session-date {
             font-family: var(--font-serif);
-            font-size: 22px;
-            margin-bottom: 16px;
-        }
-
-        .time-slots {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .time-slot {
-            font-size: 13px;
-            padding: 8px 4px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            color: var(--color-muted);
-            background: var(--color-surface);
-        }
-
-        .time-slot:hover {
-            background: rgba(14, 14, 14, 0.08);
+            font-size: 28px;
             color: var(--color-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
         }
 
-        .time-slot.selected {
-            background: var(--color-accent);
-            color: #ffffff;
+        .session-time {
+            font-size: 18px;
+            color: var(--color-accent);
+            font-weight: 500;
         }
 
         /* Form */
@@ -479,6 +444,12 @@
             margin-top: 12px;
         }
 
+        .btn-submit:disabled {
+            background: var(--color-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Confirmation */
         .confirmation {
             text-align: center;
@@ -540,10 +511,6 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            .date-picker {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .expect-grid {
                 grid-template-columns: 1fr;
                 gap: 56px;
@@ -583,37 +550,12 @@
                 padding: 100px 24px;
             }
 
-            .date-picker {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            .session-display {
+                padding: 24px;
             }
 
-            .date-card {
-                display: grid;
-                grid-template-columns: auto 1fr;
-                gap: 20px;
-                text-align: left;
-                padding: 20px;
-            }
-
-            .date-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            .date-number {
-                margin-bottom: 0;
-            }
-
-            .time-slots {
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
-            }
-
-            .time-slot {
-                padding: 8px 12px;
+            .session-date {
+                font-size: 24px;
             }
 
             .form-row {
@@ -761,10 +703,12 @@
     <section class="rsvp" id="rsvp">
         <div class="form-container" id="formContainer">
             <h2 class="rsvp-headline">Reserve your seat</h2>
-            <p class="rsvp-subhead">Sessions run every Friday. Pick a date below.</p>
+            <p class="rsvp-subhead">Join us for the next Fierce Fridays session.</p>
 
-            <div class="date-picker" id="datePicker">
-                <!-- Dates will be populated by JavaScript -->
+            <div class="session-display">
+                <div class="session-label">Next Session</div>
+                <div class="session-date">Friday, April 17th</div>
+                <div class="session-time">11:00am ET</div>
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -842,87 +786,14 @@
 
         setInterval(morphToNext, 2500);
 
-        // Date picker - Calculate next 4 Fridays
-        const datePicker = document.getElementById('datePicker');
-        const timeSlots = ['10:00am PT', '12:00pm PT', '3:00pm PT'];
+        // HubSpot Forms API configuration
+        const HUBSPOT_PORTAL_ID = '21395487';
+        const HUBSPOT_FORM_ID = '951191ba-87fe-4586-ad03-680131282143';
+        const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
 
-        function getNextFridays(count) {
-            const fridays = [];
-            const today = new Date();
-            const dayOfWeek = today.getDay();
-
-            // Calculate days until next Friday (Friday = 5)
-            let daysUntilFriday = (5 - dayOfWeek + 7) % 7;
-            if (daysUntilFriday === 0) {
-                // If today is Friday, check if we should include it
-                // Include today if before 3pm, otherwise start from next week
-                const hour = today.getHours();
-                if (hour >= 15) {
-                    daysUntilFriday = 7;
-                }
-            }
-
-            for (let i = 0; i < count; i++) {
-                const friday = new Date(today);
-                friday.setDate(today.getDate() + daysUntilFriday + (i * 7));
-                fridays.push(friday);
-            }
-
-            return fridays;
-        }
-
-        function formatDate(date) {
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            return `${months[date.getMonth()]} ${date.getDate()}`;
-        }
-
-        function createDateCards() {
-            const fridays = getNextFridays(4);
-
-            fridays.forEach((friday, index) => {
-                const card = document.createElement('div');
-                card.className = 'date-card';
-                card.dataset.date = friday.toISOString();
-
-                card.innerHTML = `
-                    <div class="date-info">
-                        <div class="date-day">Friday</div>
-                        <div class="date-number">${formatDate(friday)}</div>
-                    </div>
-                    <div class="time-slots">
-                        ${timeSlots.map((slot, slotIndex) => `
-                            <div class="time-slot" data-time="${slot}">${slot}</div>
-                        `).join('')}
-                    </div>
-                `;
-
-                datePicker.appendChild(card);
-            });
-
-            // Add click handlers
-            const cards = datePicker.querySelectorAll('.date-card');
-            cards.forEach(card => {
-                const slots = card.querySelectorAll('.time-slot');
-
-                slots.forEach(slot => {
-                    slot.addEventListener('click', (e) => {
-                        e.stopPropagation();
-
-                        // Deselect all cards and slots
-                        cards.forEach(c => {
-                            c.classList.remove('selected');
-                            c.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                        });
-
-                        // Select this card and slot
-                        card.classList.add('selected');
-                        slot.classList.add('selected');
-                    });
-                });
-            });
-        }
-
-        createDateCards();
+        // Session details
+        const SESSION_DATE = 'Friday, April 17th';
+        const SESSION_TIME = '11:00am ET';
 
         // Form validation and submission
         const form = document.getElementById('rsvpForm');
@@ -973,7 +844,7 @@
             });
         });
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             let isFormValid = true;
@@ -985,29 +856,75 @@
                 }
             });
 
-            // Check if date and time are selected
-            const selectedCard = datePicker.querySelector('.date-card.selected');
-            const selectedSlot = datePicker.querySelector('.time-slot.selected');
-
-            if (!selectedCard || !selectedSlot) {
-                // Highlight date picker area if nothing selected
-                datePicker.style.outline = '2px solid var(--color-error)';
-                datePicker.style.outlineOffset = '8px';
-                datePicker.style.borderRadius = '16px';
-
-                setTimeout(() => {
-                    datePicker.style.outline = 'none';
-                }, 2000);
-
-                isFormValid = false;
+            if (!isFormValid) {
+                return;
             }
 
-            if (isFormValid) {
-                formContainer.classList.add('hidden');
-                confirmation.classList.add('show');
+            // Disable submit button while processing
+            const submitBtn = form.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
 
-                // Scroll to confirmation
-                confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Prepare HubSpot form data
+            const formData = {
+                fields: [
+                    { name: 'firstname', value: document.getElementById('firstName').value.trim() },
+                    { name: 'lastname', value: document.getElementById('lastName').value.trim() },
+                    { name: 'email', value: document.getElementById('email').value.trim() },
+                    { name: 'company', value: document.getElementById('company').value.trim() },
+                    { name: 'jobtitle', value: document.getElementById('title').value.trim() },
+                    { name: 'session_date', value: SESSION_DATE },
+                    { name: 'session_time', value: SESSION_TIME }
+                ],
+                context: {
+                    pageUri: window.location.href,
+                    pageName: document.title
+                }
+            };
+
+            try {
+                const response = await fetch(HUBSPOT_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Redirect to thank you page on success
+                    window.location.href = '/thank-you';
+                } else {
+                    // Handle error response
+                    console.error('HubSpot submission error:', await response.text());
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+
+                    // Show error message
+                    let errorDiv = form.querySelector('.form-error-message');
+                    if (!errorDiv) {
+                        errorDiv = document.createElement('div');
+                        errorDiv.className = 'form-error-message';
+                        errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
+                        form.appendChild(errorDiv);
+                    }
+                    errorDiv.textContent = 'Something went wrong. Please try again.';
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+
+                // Show network error message
+                let errorDiv = form.querySelector('.form-error-message');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error-message';
+                    errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
+                    form.appendChild(errorDiv);
+                }
+                errorDiv.textContent = 'Network error. Please check your connection and try again.';
             }
         });
     </script>
