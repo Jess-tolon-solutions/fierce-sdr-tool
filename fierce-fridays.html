@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fierce Fridays — Free Leadership Workshops | Fierce, Inc.</title>
+    <meta name="description" content="Fierce Fridays is a free 30-minute virtual session for leaders. One module. One Friday. One conversation that changes how your team works.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #0e0e0e;
+            --color-accent: #eb7525;
+            --color-accent-hover: #d4691f;
+            --color-muted: #888888;
+            --color-surface: #f7f7f5;
+            --color-error: #c73e3e;
+            --font-serif: 'DM Serif Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--color-bg);
+            border-bottom: 1px solid rgba(14, 14, 14, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo:hover {
+            color: var(--color-accent);
+        }
+
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200vw;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .hero-watermark-row {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-serif);
+            font-size: clamp(72px, 8vw, 90px);
+            color: #0e0e0e;
+            opacity: 0.055;
+            line-height: 1.15;
+            justify-content: center;
+            gap: 0.35em;
+        }
+
+        .hero-watermark-row:nth-child(2) {
+            margin-left: -15%;
+        }
+
+        .hero-watermark-row:nth-child(3) {
+            margin-left: 10%;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 180px 40px 140px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-headline {
+            font-family: var(--font-serif);
+            font-size: clamp(48px, 8vw, 84px);
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 40px;
+        }
+
+        .hero-headline .gradient-text {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subhead {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--color-text);
+            max-width: 580px;
+            margin-bottom: 48px;
+        }
+
+        .morph-container {
+            margin-bottom: 56px;
+        }
+
+        .morph-label {
+            font-size: 15px;
+            color: var(--color-muted);
+            letter-spacing: 0.02em;
+            margin-right: 8px;
+        }
+
+        .morph-word {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            color: var(--color-accent);
+            display: inline-block;
+            position: relative;
+        }
+
+        .morph-word span {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            transition: opacity 0.6s ease;
+            white-space: nowrap;
+        }
+
+        .morph-word span.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        /* What to Expect */
+        .expect {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .expect-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px;
+        }
+
+        .expect-item {
+            text-align: left;
+        }
+
+        .expect-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+            color: var(--color-text);
+        }
+
+        .expect-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .expect-label {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .expect-text {
+            font-size: 16px;
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+
+        /* Bold Statement Section */
+        .statement {
+            background: #0e0e0e;
+            padding: 100px 40px;
+        }
+
+        .statement-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .statement-line {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 48px;
+        }
+
+        .statement-line-left {
+            flex: 1;
+            height: 1px;
+            background: var(--color-accent);
+        }
+
+        .statement-line-right {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--color-accent), transparent);
+        }
+
+        .statement-text {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.35;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .statement-text .gradient-text {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .statement-line-bottom {
+            margin-top: 48px;
+            margin-bottom: 0;
+        }
+
+        /* Social Proof */
+        .proof {
+            padding: 48px 40px 100px;
+            background: #0e0e0e;
+            text-align: center;
+        }
+
+        .proof-text {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .proof-highlight {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* RSVP Section */
+        .rsvp {
+            padding: 140px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rsvp-headline {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 5vw, 48px);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .rsvp-subhead {
+            font-size: 18px;
+            color: var(--color-muted);
+            margin-bottom: 48px;
+        }
+
+        /* Date Picker */
+        .date-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .date-card {
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--color-bg);
+        }
+
+        .date-card:hover {
+            border-color: rgba(14, 14, 14, 0.25);
+        }
+
+        .date-card.selected {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.04);
+        }
+
+        .date-day {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+
+        .date-number {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .time-slot {
+            font-size: 13px;
+            padding: 8px 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: var(--color-muted);
+            background: var(--color-surface);
+        }
+
+        .time-slot:hover {
+            background: rgba(14, 14, 14, 0.08);
+            color: var(--color-text);
+        }
+
+        .time-slot.selected {
+            background: var(--color-accent);
+            color: #ffffff;
+        }
+
+        /* Form */
+        .rsvp-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .form-label .optional {
+            color: var(--color-muted);
+            font-weight: 400;
+        }
+
+        .form-input {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            padding: 16px 18px;
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 8px;
+            background: var(--color-bg);
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:hover {
+            border-color: rgba(14, 14, 14, 0.2);
+        }
+
+        .form-input:focus {
+            border-color: var(--color-accent);
+        }
+
+        .form-input.error {
+            border-color: var(--color-error);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-muted);
+        }
+
+        .error-message {
+            font-size: 13px;
+            color: var(--color-error);
+            margin-top: 6px;
+            display: none;
+        }
+
+        .form-group.has-error .error-message {
+            display: block;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px 28px;
+            font-size: 16px;
+            margin-top: 12px;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            text-align: center;
+            padding: 80px 0;
+            display: none;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        .confirmation-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            color: var(--color-accent);
+        }
+
+        .confirmation-headline {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .confirmation-text {
+            font-size: 18px;
+            color: var(--color-muted);
+        }
+
+        .form-container.hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px;
+            border-top: 1px solid rgba(14, 14, 14, 0.06);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .date-picker {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .expect-grid {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .nav-inner {
+                padding: 16px 24px;
+            }
+
+            .hero {
+                padding: 140px 24px 100px;
+            }
+
+            .hero-subhead {
+                font-size: 18px;
+            }
+
+            .morph-word {
+                font-size: 24px;
+            }
+
+            .expect {
+                padding: 80px 24px;
+            }
+
+            .statement {
+                padding: 80px 24px;
+            }
+
+            .proof {
+                padding: 40px 24px 80px;
+            }
+
+            .rsvp {
+                padding: 100px 24px;
+            }
+
+            .date-picker {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .date-card {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 20px;
+                text-align: left;
+                padding: 20px;
+            }
+
+            .date-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .date-number {
+                margin-bottom: 0;
+            }
+
+            .time-slots {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .time-slot {
+                padding: 8px 12px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 32px 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="logo">Fierce</a>
+            <a href="#rsvp" class="btn btn-primary">Reserve your seat</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero-wrapper">
+        <div class="hero-watermark" aria-hidden="true">
+            <div class="hero-watermark-row">
+                <span>Feedback</span>
+                <span>Clarity</span>
+                <span>Accountability</span>
+                <span>Trust</span>
+                <span>Candor</span>
+                <span>Delegation</span>
+            </div>
+            <div class="hero-watermark-row">
+                <span>Confrontation</span>
+                <span>Alignment</span>
+                <span>Coaching</span>
+                <span>Resilience</span>
+                <span>Listening</span>
+                <span>Ownership</span>
+            </div>
+            <div class="hero-watermark-row">
+                <span>Influence</span>
+                <span>Transparency</span>
+                <span>Courage</span>
+                <span>Presence</span>
+                <span>Vulnerability</span>
+                <span>Accountability</span>
+            </div>
+        </div>
+        <section class="hero">
+            <h1 class="hero-headline">
+                The <span class="gradient-text">conversation</span><br>your team isn't having.
+            </h1>
+            <p class="hero-subhead">
+                Fierce Fridays is a free 30-minute virtual session for leaders. One module. One Friday. One conversation that changes how your team works.
+            </p>
+            <div class="morph-container">
+                <span class="morph-label">This month:</span>
+                <span class="morph-word" id="morphWord">
+                    <span class="active">Feedback</span>
+                    <span>Coaching</span>
+                    <span>Confrontation</span>
+                    <span>Resilience</span>
+                    <span>Influence</span>
+                </span>
+            </div>
+            <a href="#rsvp" class="btn btn-primary">Reserve your seat</a>
+        </section>
+    </div>
+
+    <!-- What to Expect -->
+    <section class="expect">
+        <div class="expect-grid">
+            <div class="expect-item">
+                <div class="expect-icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="24" cy="24" r="20"/>
+                        <polyline points="24,12 24,24 32,28"/>
+                    </svg>
+                </div>
+                <h3 class="expect-label">30 minutes</h3>
+                <p class="expect-text">A focused, experiential session. No slides. No pitch. Just practice.</p>
+            </div>
+            <div class="expect-item">
+                <div class="expect-icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="8" y="6" width="32" height="36" rx="2"/>
+                        <line x1="16" y1="14" x2="32" y2="14"/>
+                        <line x1="16" y1="22" x2="32" y2="22"/>
+                        <line x1="16" y1="30" x2="26" y2="30"/>
+                    </svg>
+                </div>
+                <h3 class="expect-label">One module</h3>
+                <p class="expect-text">Each session covers one of Fierce's 8 conversation frameworks, applied to a real leadership scenario.</p>
+            </div>
+            <div class="expect-item">
+                <div class="expect-icon">
+                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="6" y="10" width="36" height="32" rx="2"/>
+                        <line x1="6" y1="18" x2="42" y2="18"/>
+                        <line x1="16" y1="6" x2="16" y2="14"/>
+                        <line x1="32" y1="6" x2="32" y2="14"/>
+                        <line x1="14" y1="26" x2="18" y2="26"/>
+                        <line x1="22" y1="26" x2="26" y2="26"/>
+                        <line x1="30" y1="26" x2="34" y2="26"/>
+                        <line x1="14" y1="34" x2="18" y2="34"/>
+                        <line x1="22" y1="34" x2="26" y2="34"/>
+                    </svg>
+                </div>
+                <h3 class="expect-label">Every Friday</h3>
+                <p class="expect-text">Sessions run on Fridays. Pick the date that works for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bold Statement + Social Proof -->
+    <section class="statement">
+        <div class="statement-inner">
+            <div class="statement-line">
+                <div class="statement-line-left"></div>
+                <div class="statement-line-right"></div>
+            </div>
+            <p class="statement-text">
+                Most teams aren't failing because of strategy. They're failing because of the conversations <span class="gradient-text">nobody is having.</span>
+            </p>
+            <div class="statement-line statement-line-bottom">
+                <div class="statement-line-left"></div>
+                <div class="statement-line-right"></div>
+            </div>
+        </div>
+    </section>
+    <section class="proof">
+        <p class="proof-text">
+            Fierce Conversations has an <span class="proof-highlight">NPS of 70</span> and a Top 20 Training Industry ranking.
+        </p>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="rsvp" id="rsvp">
+        <div class="form-container" id="formContainer">
+            <h2 class="rsvp-headline">Reserve your seat</h2>
+            <p class="rsvp-subhead">Sessions run every Friday. Pick a date below.</p>
+
+            <div class="date-picker" id="datePicker">
+                <!-- Dates will be populated by JavaScript -->
+            </div>
+
+            <form class="rsvp-form" id="rsvpForm" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First name</label>
+                        <input type="text" class="form-input" id="firstName" name="firstName" required autocomplete="given-name">
+                        <span class="error-message">Please enter your first name</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">Last name</label>
+                        <input type="text" class="form-input" id="lastName" name="lastName" required autocomplete="family-name">
+                        <span class="error-message">Please enter your last name</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Work email</label>
+                    <input type="email" class="form-input" id="email" name="email" required autocomplete="email">
+                    <span class="error-message">Please enter a valid work email</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="company">Company</label>
+                    <input type="text" class="form-input" id="company" name="company" required autocomplete="organization">
+                    <span class="error-message">Please enter your company name</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="title">Title <span class="optional">(optional)</span></label>
+                    <input type="text" class="form-input" id="title" name="title" autocomplete="organization-title">
+                </div>
+                <button type="submit" class="btn btn-primary btn-submit">Reserve my seat</button>
+            </form>
+        </div>
+
+        <div class="confirmation" id="confirmation">
+            <div class="confirmation-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="32" cy="32" r="28"/>
+                    <polyline points="20,32 28,40 44,24"/>
+                </svg>
+            </div>
+            <h3 class="confirmation-headline">You're in.</h3>
+            <p class="confirmation-text">Check your email for details. We'll see you Friday.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="#" class="footer-logo">Fierce</a>
+            <p class="footer-copyright">© 2026 Fierce, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Word morphing animation
+        const morphWord = document.getElementById('morphWord');
+        const words = morphWord.querySelectorAll('span');
+        let currentIndex = 0;
+
+        function morphToNext() {
+            words[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % words.length;
+            words[currentIndex].classList.add('active');
+        }
+
+        setInterval(morphToNext, 2500);
+
+        // Date picker - Calculate next 4 Fridays
+        const datePicker = document.getElementById('datePicker');
+        const timeSlots = ['10:00am PT', '12:00pm PT', '3:00pm PT'];
+
+        function getNextFridays(count) {
+            const fridays = [];
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+
+            // Calculate days until next Friday (Friday = 5)
+            let daysUntilFriday = (5 - dayOfWeek + 7) % 7;
+            if (daysUntilFriday === 0) {
+                // If today is Friday, check if we should include it
+                // Include today if before 3pm, otherwise start from next week
+                const hour = today.getHours();
+                if (hour >= 15) {
+                    daysUntilFriday = 7;
+                }
+            }
+
+            for (let i = 0; i < count; i++) {
+                const friday = new Date(today);
+                friday.setDate(today.getDate() + daysUntilFriday + (i * 7));
+                fridays.push(friday);
+            }
+
+            return fridays;
+        }
+
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        function createDateCards() {
+            const fridays = getNextFridays(4);
+
+            fridays.forEach((friday, index) => {
+                const card = document.createElement('div');
+                card.className = 'date-card';
+                card.dataset.date = friday.toISOString();
+
+                card.innerHTML = `
+                    <div class="date-info">
+                        <div class="date-day">Friday</div>
+                        <div class="date-number">${formatDate(friday)}</div>
+                    </div>
+                    <div class="time-slots">
+                        ${timeSlots.map((slot, slotIndex) => `
+                            <div class="time-slot" data-time="${slot}">${slot}</div>
+                        `).join('')}
+                    </div>
+                `;
+
+                datePicker.appendChild(card);
+            });
+
+            // Add click handlers
+            const cards = datePicker.querySelectorAll('.date-card');
+            cards.forEach(card => {
+                const slots = card.querySelectorAll('.time-slot');
+
+                slots.forEach(slot => {
+                    slot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+
+                        // Deselect all cards and slots
+                        cards.forEach(c => {
+                            c.classList.remove('selected');
+                            c.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                        });
+
+                        // Select this card and slot
+                        card.classList.add('selected');
+                        slot.classList.add('selected');
+                    });
+                });
+            });
+        }
+
+        createDateCards();
+
+        // Form validation and submission
+        const form = document.getElementById('rsvpForm');
+        const formContainer = document.getElementById('formContainer');
+        const confirmation = document.getElementById('confirmation');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validateField(input) {
+            const formGroup = input.closest('.form-group');
+            let isValid = true;
+
+            if (input.required) {
+                if (input.type === 'email') {
+                    isValid = validateEmail(input.value);
+                } else {
+                    isValid = input.value.trim() !== '';
+                }
+            }
+
+            if (isValid) {
+                formGroup.classList.remove('has-error');
+                input.classList.remove('error');
+            } else {
+                formGroup.classList.add('has-error');
+                input.classList.add('error');
+            }
+
+            return isValid;
+        }
+
+        // Real-time validation on blur
+        const inputs = form.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                if (input.value.trim() !== '' || input.required) {
+                    validateField(input);
+                }
+            });
+
+            input.addEventListener('input', () => {
+                if (input.classList.contains('error')) {
+                    validateField(input);
+                }
+            });
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let isFormValid = true;
+            const requiredInputs = form.querySelectorAll('.form-input[required]');
+
+            requiredInputs.forEach(input => {
+                if (!validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+
+            // Check if date and time are selected
+            const selectedCard = datePicker.querySelector('.date-card.selected');
+            const selectedSlot = datePicker.querySelector('.time-slot.selected');
+
+            if (!selectedCard || !selectedSlot) {
+                // Highlight date picker area if nothing selected
+                datePicker.style.outline = '2px solid var(--color-error)';
+                datePicker.style.outlineOffset = '8px';
+                datePicker.style.borderRadius = '16px';
+
+                setTimeout(() => {
+                    datePicker.style.outline = 'none';
+                }, 2000);
+
+                isFormValid = false;
+            }
+
+            if (isFormValid) {
+                formContainer.classList.add('hidden');
+                confirmation.classList.add('show');
+
+                // Scroll to confirmation
+                confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html>
