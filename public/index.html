@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fierce SDR Outreach Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --fierce-orange: #eb7525;
+      --fierce-orange-light: #f5a66a;
+      --fierce-orange-dark: #d16318;
+      --gray-50: #fafafa;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-300: #d4d4d8;
+      --gray-400: #a1a1aa;
+      --gray-500: #71717a;
+      --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
+      --gray-900: #18181b;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--gray-50) 0%, #fff 100%);
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      color: var(--fierce-orange);
+      margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+      color: var(--gray-500);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--fierce-orange);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--fierce-orange);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .login-btn:hover {
+      background: var(--fierce-orange-dark);
+    }
+
+    .login-error {
+      color: #dc2626;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Main App Layout */
+    .app-container {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .app-container.active {
+      display: flex;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 100;
+    }
+
+    .header-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--fierce-orange);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logout-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      background: none;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .logout-btn:hover {
+      background: var(--gray-100);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      bottom: 0;
+      width: 360px;
+      background: var(--gray-50);
+      border-right: 1px solid var(--gray-200);
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      margin-bottom: 0.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 0.375rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      background: #fff;
+      transition: border-color 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--fierce-orange);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      margin-top: 0.25rem;
+    }
+
+    /* File Upload */
+    .file-upload {
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fff;
+    }
+
+    .file-upload:hover {
+      border-color: var(--fierce-orange);
+      background: var(--gray-50);
+    }
+
+    .file-upload.has-file {
+      border-color: var(--fierce-orange);
+      background: rgba(235, 117, 37, 0.05);
+    }
+
+    .file-upload-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .file-upload-text {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    .file-upload-text strong {
+      color: var(--fierce-orange);
+    }
+
+    .file-name {
+      font-size: 0.85rem;
+      color: var(--fierce-orange);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    #csv-input {
+      display: none;
+    }
+
+    /* Generate Button */
+    .generate-btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--fierce-orange);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      margin-top: 0.5rem;
+    }
+
+    .generate-btn:hover:not(:disabled) {
+      background: var(--fierce-orange-dark);
+    }
+
+    .generate-btn:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 360px;
+      margin-top: 60px;
+      padding: 2rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    .main-header {
+      margin-bottom: 2rem;
+    }
+
+    .main-title {
+      font-size: 1.75rem;
+      color: var(--gray-800);
+      margin-bottom: 0.5rem;
+    }
+
+    .main-subtitle {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      display: none;
+      margin-bottom: 2rem;
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+
+    .progress-container.active {
+      display: block;
+    }
+
+    .progress-text {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--gray-200);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--fierce-orange);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    /* Output Cards */
+    .cards-container {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .output-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-contact-info h3 {
+      font-size: 1.1rem;
+      color: var(--gray-800);
+      margin-bottom: 0.125rem;
+    }
+
+    .card-contact-info p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+
+    .card-linkedin {
+      font-size: 0.8rem;
+      color: var(--fierce-orange);
+      text-decoration: none;
+    }
+
+    .card-linkedin:hover {
+      text-decoration: underline;
+    }
+
+    /* Tabs */
+    .card-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .card-tab {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .card-tab:hover {
+      color: var(--gray-700);
+    }
+
+    .card-tab.active {
+      color: var(--fierce-orange);
+      border-bottom-color: var(--fierce-orange);
+      background: #fff;
+    }
+
+    /* Tab Content */
+    .card-content {
+      padding: 1.25rem;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .content-section {
+      margin-bottom: 1.25rem;
+    }
+
+    .content-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .content-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      margin-bottom: 0.5rem;
+    }
+
+    .content-text {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      white-space: pre-wrap;
+      line-height: 1.7;
+    }
+
+    .email-subject {
+      font-weight: 600;
+      color: var(--gray-800);
+      padding: 0.75rem;
+      background: var(--gray-50);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    /* Copy Button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--fierce-orange);
+      background: rgba(235, 117, 37, 0.1);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      margin-top: 1rem;
+    }
+
+    .copy-btn:hover {
+      background: rgba(235, 117, 37, 0.2);
+    }
+
+    .copy-btn.copied {
+      color: #16a34a;
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    /* Intel Tab */
+    .intel-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .intel-item {
+      padding: 1rem;
+      background: var(--gray-50);
+      border-radius: 8px;
+    }
+
+    .intel-item h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .intel-item p,
+    .intel-item ul {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .intel-item ul {
+      padding-left: 1.25rem;
+    }
+
+    .intel-item li {
+      margin-bottom: 0.25rem;
+    }
+
+    .module-badge {
+      display: inline-block;
+      padding: 0.375rem 0.75rem;
+      background: var(--fierce-orange);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Error Card */
+    .error-card {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .error-message {
+      color: #dc2626;
+      padding: 1rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-500);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.25rem;
+      color: var(--gray-700);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Fierce Friday Section */
+    .ff-section {
+      background: rgba(235, 117, 37, 0.05);
+      border: 1px solid rgba(235, 117, 37, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .ff-section .sidebar-section-title {
+      color: var(--fierce-orange);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-container">
+      <div class="login-logo">Fierce</div>
+      <p class="login-subtitle">SDR Outreach Generator</p>
+      <form id="login-form">
+        <input type="password" class="login-input" id="password-input" placeholder="Enter team password" required>
+        <button type="submit" class="login-btn">Sign In</button>
+      </form>
+      <p class="login-error" id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div class="app-container" id="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-logo">Fierce</div>
+      <div class="header-actions">
+        <button class="logout-btn" id="logout-btn">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <form id="generator-form">
+        <!-- Rep Info -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Your Info</div>
+          <div class="form-group">
+            <label class="form-label" for="rep-name">Your Name *</label>
+            <input type="text" class="form-input" id="rep-name" placeholder="e.g., Sarah Johnson" required>
+          </div>
+        </div>
+
+        <!-- Tone & Style -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Tone & Style</div>
+          <div class="form-group">
+            <label class="form-label" for="tone">Message Tone *</label>
+            <select class="form-select" id="tone" required>
+              <option value="Warm">Warm</option>
+              <option value="Direct">Direct</option>
+              <option value="Consultative">Consultative</option>
+              <option value="Energetic">Energetic</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="style-notes">Style Notes (optional)</label>
+            <textarea class="form-textarea" id="style-notes" placeholder="Any specific instructions for your outreach style..."></textarea>
+          </div>
+        </div>
+
+        <!-- Fierce Friday -->
+        <div class="sidebar-section">
+          <div class="ff-section">
+            <div class="sidebar-section-title">Fierce Friday (optional)</div>
+            <p class="form-hint" style="margin-bottom: 0.75rem;">Promote an upcoming session in your outreach</p>
+            <div class="form-group">
+              <label class="form-label" for="ff-topic">Session Topic</label>
+              <input type="text" class="form-input" id="ff-topic" placeholder="e.g., Feedback That Fuels Growth">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ff-date">Date</label>
+              <input type="text" class="form-input" id="ff-date" placeholder="e.g., Friday, March 15">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ff-description">One-Line Description</label>
+              <input type="text" class="form-input" id="ff-description" placeholder="e.g., Learn to give feedback that actually lands">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ff-link">Registration Link</label>
+              <input type="url" class="form-input" id="ff-link" placeholder="https://...">
+            </div>
+          </div>
+        </div>
+
+        <!-- CSV Upload -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Contacts</div>
+          <div class="file-upload" id="file-upload">
+            <div class="file-upload-icon">📄</div>
+            <p class="file-upload-text"><strong>Click to upload</strong> or drag and drop</p>
+            <p class="form-hint">CSV with first_name, company, domain (required)</p>
+            <p class="file-name" id="file-name"></p>
+          </div>
+          <input type="file" id="csv-input" accept=".csv">
+        </div>
+
+        <button type="submit" class="generate-btn" id="generate-btn" disabled>Generate Outreach</button>
+      </form>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="main-header">
+        <h1 class="main-title">Outreach Generator</h1>
+        <p class="main-subtitle">AI-powered personalized sales outreach with industry intelligence</p>
+      </div>
+
+      <div class="progress-container" id="progress-container">
+        <p class="progress-text" id="progress-text">Processing contacts...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="cards-container" id="cards-container">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state-icon">✨</div>
+          <h3>Ready to generate</h3>
+          <p>Upload a CSV with your contacts to get started</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // State
+    let csvFile = null;
+
+    // DOM Elements
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password-input');
+    const loginError = document.getElementById('login-error');
+    const logoutBtn = document.getElementById('logout-btn');
+    const generatorForm = document.getElementById('generator-form');
+    const fileUpload = document.getElementById('file-upload');
+    const csvInput = document.getElementById('csv-input');
+    const fileName = document.getElementById('file-name');
+    const generateBtn = document.getElementById('generate-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressText = document.getElementById('progress-text');
+    const progressFill = document.getElementById('progress-fill');
+    const cardsContainer = document.getElementById('cards-container');
+    const emptyState = document.getElementById('empty-state');
+
+    // Check auth on load
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth-check');
+        const data = await res.json();
+        if (data.authenticated) {
+          showApp();
+        }
+      } catch (err) {
+        console.error('Auth check failed:', err);
+      }
+    }
+
+    function showApp() {
+      loginScreen.style.display = 'none';
+      appContainer.classList.add('active');
+    }
+
+    function showLogin() {
+      loginScreen.style.display = 'flex';
+      appContainer.classList.remove('active');
+    }
+
+    // Login
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.textContent = '';
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: passwordInput.value })
+        });
+
+        if (res.ok) {
+          passwordInput.value = '';
+          showApp();
+        } else {
+          loginError.textContent = 'Invalid password';
+        }
+      } catch (err) {
+        loginError.textContent = 'Connection error. Please try again.';
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      showLogin();
+    });
+
+    // File Upload
+    fileUpload.addEventListener('click', () => csvInput.click());
+
+    fileUpload.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUpload.style.borderColor = 'var(--fierce-orange)';
+    });
+
+    fileUpload.addEventListener('dragleave', () => {
+      fileUpload.style.borderColor = '';
+    });
+
+    fileUpload.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUpload.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if (file && file.name.endsWith('.csv')) {
+        handleFile(file);
+      }
+    });
+
+    csvInput.addEventListener('change', (e) => {
+      if (e.target.files[0]) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      csvFile = file;
+      fileName.textContent = file.name;
+      fileUpload.classList.add('has-file');
+      updateGenerateBtn();
+    }
+
+    function updateGenerateBtn() {
+      const repName = document.getElementById('rep-name').value.trim();
+      generateBtn.disabled = !csvFile || !repName;
+    }
+
+    document.getElementById('rep-name').addEventListener('input', updateGenerateBtn);
+
+    // Generate Outreach
+    generatorForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!csvFile) return;
+
+      const formData = new FormData();
+      formData.append('csv', csvFile);
+      formData.append('repName', document.getElementById('rep-name').value);
+      formData.append('tone', document.getElementById('tone').value);
+      formData.append('styleNotes', document.getElementById('style-notes').value);
+      formData.append('ffTopic', document.getElementById('ff-topic').value);
+      formData.append('ffDate', document.getElementById('ff-date').value);
+      formData.append('ffDescription', document.getElementById('ff-description').value);
+      formData.append('ffLink', document.getElementById('ff-link').value);
+
+      // Clear previous results
+      cardsContainer.innerHTML = '';
+      emptyState.style.display = 'none';
+      progressContainer.classList.add('active');
+      progressFill.style.width = '0%';
+      generateBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/process-csv', {
+          method: 'POST',
+          body: formData
+        });
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let total = 0;
+        let processed = 0;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = JSON.parse(line.slice(6));
+
+              if (data.type === 'init') {
+                total = data.total;
+                progressText.textContent = `Processing 0 of ${total} contacts...`;
+              } else if (data.type === 'result') {
+                processed++;
+                progressText.textContent = `Processing ${processed} of ${total} contacts...`;
+                progressFill.style.width = `${(processed / total) * 100}%`;
+                addResultCard(data.contact, data.result);
+              } else if (data.type === 'error') {
+                processed++;
+                progressText.textContent = `Processing ${processed} of ${total} contacts...`;
+                progressFill.style.width = `${(processed / total) * 100}%`;
+                addErrorCard(data.contact, data.error);
+              } else if (data.type === 'done') {
+                progressText.textContent = `Completed! ${processed} contacts processed.`;
+              } else if (data.error) {
+                progressText.textContent = data.error;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        progressText.textContent = 'Error: ' + err.message;
+      } finally {
+        generateBtn.disabled = false;
+      }
+    });
+
+    function addResultCard(contact, result) {
+      const card = document.createElement('div');
+      card.className = 'output-card';
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-contact-info">
+            <h3>${contact.first_name} ${contact.last_name}</h3>
+            <p>${contact.title ? contact.title + ' at ' : ''}${contact.company}</p>
+          </div>
+          ${contact.linkedin_url ? `<a href="${contact.linkedin_url}" target="_blank" class="card-linkedin">View LinkedIn</a>` : ''}
+        </div>
+        <div class="card-tabs">
+          <button class="card-tab active" data-tab="email">Email</button>
+          <button class="card-tab" data-tab="linkedin">LinkedIn DM</button>
+          <button class="card-tab" data-tab="intel">Intel</button>
+        </div>
+        <div class="card-content">
+          <div class="tab-panel active" data-panel="email">
+            <div class="content-section">
+              <div class="content-label">Subject Line</div>
+              <div class="email-subject">${escapeHtml(result.email_subject)}</div>
+            </div>
+            <div class="content-section">
+              <div class="content-label">Email Body</div>
+              <div class="content-text">${escapeHtml(result.email_body)}</div>
+            </div>
+            <button class="copy-btn" data-copy="email" data-subject="${escapeAttr(result.email_subject)}" data-body="${escapeAttr(result.email_body)}">
+              📋 Copy Email
+            </button>
+          </div>
+          <div class="tab-panel" data-panel="linkedin">
+            <div class="content-section">
+              <div class="content-label">LinkedIn Message</div>
+              <div class="content-text">${escapeHtml(result.linkedin_dm)}</div>
+            </div>
+            <button class="copy-btn" data-copy="linkedin" data-text="${escapeAttr(result.linkedin_dm)}">
+              📋 Copy Message
+            </button>
+          </div>
+          <div class="tab-panel" data-panel="intel">
+            <div class="intel-grid">
+              <div class="intel-item">
+                <div class="module-badge">${escapeHtml(result.recommended_module)}</div>
+                <p>${escapeHtml(result.module_rationale)}</p>
+              </div>
+              <div class="intel-item">
+                <h4>Industry Pain Points</h4>
+                <ul>
+                  ${result.industry_pain_points.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="intel-item">
+                <h4>Research Notes</h4>
+                <p>${escapeHtml(result.research_notes)}</p>
+              </div>
+              <div class="intel-item">
+                <h4>Hook Used</h4>
+                <p>${escapeHtml(result.hook_used)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Tab switching
+      const tabs = card.querySelectorAll('.card-tab');
+      const panels = card.querySelectorAll('.tab-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          card.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+        });
+      });
+
+      // Copy buttons
+      card.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          let text;
+          if (btn.dataset.copy === 'email') {
+            text = `Subject: ${btn.dataset.subject}\n\n${btn.dataset.body}`;
+          } else {
+            text = btn.dataset.text;
+          }
+          navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            btn.innerHTML = '✓ Copied!';
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.innerHTML = btn.dataset.copy === 'email' ? '📋 Copy Email' : '📋 Copy Message';
+            }, 2000);
+          });
+        });
+      });
+
+      cardsContainer.appendChild(card);
+    }
+
+    function addErrorCard(contact, error) {
+      const card = document.createElement('div');
+      card.className = 'output-card error-card';
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-contact-info">
+            <h3>${contact.first_name}</h3>
+            <p>${contact.company}</p>
+          </div>
+        </div>
+        <div class="error-message">
+          Error generating outreach: ${escapeHtml(error)}
+        </div>
+      `;
+      cardsContainer.appendChild(card);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function escapeAttr(text) {
+      return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    // Init
+    checkAuth();
+  </script>
+</body>
+</html>
