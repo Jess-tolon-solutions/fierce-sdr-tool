@@ -205,6 +205,44 @@
             position: relative;
         }
 
+        /* Logo Bar */
+        .logos {
+            background: #F5F4F1;
+            padding: 80px 40px;
+        }
+
+        .logos-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .logos-label {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 40px;
+        }
+
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 40px 40px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .logos-grid img {
+            max-width: 120px;
+            max-height: 48px;
+            width: auto;
+            height: auto;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+
         /* What to Expect */
         .expect {
             padding: 120px 40px;
@@ -215,11 +253,26 @@
         .expect-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 80px;
+            gap: 32px;
         }
 
         .expect-item {
             text-align: left;
+            background: #FAFAF8;
+            padding: 32px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .expect-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            border-radius: 12px 12px 0 0;
         }
 
         .expect-icon {
@@ -510,10 +563,43 @@
         }
 
         /* Responsive */
+        @media (max-width: 1000px) {
+            .logos-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 32px;
+            }
+
+            .logos-grid img {
+                max-width: 100px;
+            }
+        }
+
         @media (max-width: 900px) {
             .expect-grid {
                 grid-template-columns: 1fr;
-                gap: 56px;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .logos-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px 32px;
+            }
+
+            .logos-grid img {
+                max-width: 90px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .logos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px 24px;
+            }
+
+            .logos-grid img {
+                max-width: 80px;
             }
         }
 
@@ -532,6 +618,10 @@
 
             .morph-word {
                 font-size: 24px;
+            }
+
+            .logos {
+                padding: 60px 24px;
             }
 
             .expect {
@@ -632,6 +722,27 @@
         </section>
     </div>
 
+    <!-- Logo Bar -->
+    <section class="logos">
+        <div class="logos-inner">
+            <p class="logos-label">Trusted by leaders at</p>
+            <div class="logos-grid">
+                <img src="public/logos/logo1.png" alt="Marriott International">
+                <img src="public/logos/logo2.png" alt="Walt Disney">
+                <img src="public/logos/logo3.png" alt="Capital One">
+                <img src="public/logos/logo4.png" alt="Amazon">
+                <img src="public/logos/logo5.png" alt="Salesforce">
+                <img src="public/logos/logo6.png" alt="AT&T">
+                <img src="public/logos/logo7.png" alt="UCLA">
+                <img src="public/logos/logo8.png" alt="Zillow">
+                <img src="public/logos/logo9.png" alt="Nordstrom">
+                <img src="public/logos/logo10.png" alt="NBC">
+                <img src="public/logos/logo11.png" alt="Fanatics">
+                <img src="public/logos/logo12.png" alt="Verizon">
+            </div>
+        </div>
+    </section>
+
     <!-- What to Expect -->
     <section class="expect">
         <div class="expect-grid">
@@ -695,7 +806,7 @@
     </section>
     <section class="proof">
         <p class="proof-text">
-            Fierce Conversations has an <span class="proof-highlight">NPS of 70</span> and a Top 20 Training Industry ranking.
+            Fierce Conversations has an <span class="proof-highlight">NPS of 70</span> and a <span class="proof-highlight">Top 20 Training Industry ranking</span>.
         </p>
     </section>
 
