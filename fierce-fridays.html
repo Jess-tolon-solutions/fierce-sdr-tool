@@ -977,7 +977,17 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
 
+            // Get HubSpot tracking cookie if available
+            function getHubSpotCookie() {
+                const name = 'hubspotutk';
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            }
+
             // Prepare HubSpot form data
+            const hutk = getHubSpotCookie();
             const formData = {
                 fields: [
                     { name: 'firstname', value: document.getElementById('firstName').value.trim() },
@@ -989,9 +999,11 @@
                     { name: 'session_time', value: SESSION_TIME }
                 ],
                 context: {
-                    pageUri: window.location.href,
-                    pageName: document.title
-                }
+                    hutk: hutk,
+                    pageUri: window.top.location.href,
+                    pageName: 'Fierce Fridays Registration'
+                },
+                skipValidation: true
             };
 
             try {
