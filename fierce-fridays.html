@@ -885,13 +885,24 @@
         });
 
         // Smooth scroll for anchor links (better iframe compatibility)
+        function smoothScrollTo(targetId) {
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+
         document.querySelectorAll('a[href="#rsvp"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const rsvpSection = document.getElementById('rsvp');
-                if (rsvpSection) {
-                    rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                e.stopPropagation();
+                smoothScrollTo('rsvp');
+                return false;
             });
         });
 
