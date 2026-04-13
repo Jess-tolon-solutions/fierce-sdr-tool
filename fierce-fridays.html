@@ -1004,8 +1004,10 @@
                 });
 
                 if (response.ok) {
-                    // Redirect to thank you page on success
-                    window.top.location.href = 'https://jess-tolon-solutions.github.io/fierce-sdr-tool/thank-you.html';
+                    // Show inline confirmation (no redirect to keep URL consistent)
+                    formContainer.classList.add('hidden');
+                    confirmation.classList.add('show');
+                    confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     // Handle error response
                     console.error('HubSpot submission error:', await response.text());
