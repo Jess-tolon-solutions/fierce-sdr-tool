@@ -1037,7 +1037,6 @@
             };
 
             try {
-                console.log('Submitting to HubSpot:', JSON.stringify(formData));
                 const response = await fetch(HUBSPOT_API_URL, {
                     method: 'POST',
                     headers: {
@@ -1046,9 +1045,6 @@
                     body: JSON.stringify(formData)
                 });
 
-                const responseText = await response.text();
-                console.log('HubSpot response:', response.status, responseText);
-
                 if (response.ok) {
                     // Show inline confirmation (no redirect to keep URL consistent)
                     formContainer.classList.add('hidden');
@@ -1056,7 +1052,7 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                     // Handle error response
-                    console.error('HubSpot submission error:', responseText);
+                    console.error('HubSpot submission error:', response.status);
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
 
