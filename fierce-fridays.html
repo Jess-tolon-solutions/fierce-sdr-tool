@@ -1005,7 +1005,7 @@
 
                 if (response.ok) {
                     // Redirect to thank you page on success
-                    window.location.href = '/thank-you';
+                    window.top.location.href = 'https://jess-tolon-solutions.github.io/fierce-sdr-tool/thank-you.html';
                 } else {
                     // Handle error response
                     console.error('HubSpot submission error:', await response.text());
