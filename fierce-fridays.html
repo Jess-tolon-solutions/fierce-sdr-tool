@@ -1010,6 +1010,14 @@
 
             // Prepare HubSpot form data
             const hutk = getHubSpotCookie();
+            // Get page URI safely (handle cross-origin iframe)
+            let pageUri;
+            try {
+                pageUri = window.top.location.href;
+            } catch (e) {
+                pageUri = window.location.href;
+            }
+
             const formData = {
                 fields: [
                     { name: 'firstname', value: document.getElementById('firstName').value.trim() },
@@ -1022,7 +1030,7 @@
                 ],
                 context: {
                     hutk: hutk,
-                    pageUri: window.top.location.href,
+                    pageUri: pageUri,
                     pageName: 'Fierce Pulse Learning Registration'
                 },
                 skipValidation: true
