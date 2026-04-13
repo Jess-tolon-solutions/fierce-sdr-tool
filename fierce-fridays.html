@@ -884,6 +884,17 @@
             }
         });
 
+        // Smooth scroll for anchor links (better iframe compatibility)
+        document.querySelectorAll('a[href="#rsvp"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rsvpSection = document.getElementById('rsvp');
+                if (rsvpSection) {
+                    rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
         // Word morphing animation
         const morphWord = document.getElementById('morphWord');
         const words = morphWord.querySelectorAll('span');
