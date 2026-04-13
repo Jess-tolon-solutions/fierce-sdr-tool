@@ -698,7 +698,7 @@
           <div class="file-upload" id="file-upload">
             <div class="file-upload-icon">📄</div>
             <p class="file-upload-text"><strong>Click to upload</strong> or drag and drop</p>
-            <p class="form-hint">CSV with first_name, company, domain (required)</p>
+            <p class="form-hint">CSV with first_name, company, domain (max 25 contacts)</p>
             <p class="file-name" id="file-name"></p>
           </div>
           <input type="file" id="csv-input" accept=".csv">
@@ -827,6 +827,9 @@
       }
     });
 
+    const MAX_CONTACTS = 25;
+    let contactCount = 0;
+
     csvInput.addEventListener('change', (e) => {
       if (e.target.files[0]) {
         handleFile(e.target.files[0]);
@@ -834,15 +837,44 @@
     });
 
     function handleFile(file) {
-      csvFile = file;
-      fileName.textContent = file.name;
-      fileUpload.classList.add('has-file');
-      updateGenerateBtn();
+      // Read and validate CSV row count
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target.result;
+        const lines = text.split('\n').filter(line => line.trim());
+        contactCount = lines.length - 1; // Subtract header row
+
+        if (contactCount > MAX_CONTACTS) {
+          csvFile = null;
+          contactCount = 0;
+          fileName.innerHTML = `<span style="color: #dc2626;">Too many contacts (${lines.length - 1}). Max ${MAX_CONTACTS} per batch.</span>`;
+          fileUpload.classList.remove('has-file');
+          fileUpload.classList.add('has-error');
+          updateGenerateBtn();
+          return;
+        }
+
+        if (contactCount < 1) {
+          csvFile = null;
+          contactCount = 0;
+          fileName.innerHTML = `<span style="color: #dc2626;">No contacts found in CSV.</span>`;
+          fileUpload.classList.remove('has-file');
+          updateGenerateBtn();
+          return;
+        }
+
+        csvFile = file;
+        fileName.innerHTML = `${file.name} <span style="color: var(--gray-500);">(${contactCount} contacts)</span>`;
+        fileUpload.classList.add('has-file');
+        fileUpload.classList.remove('has-error');
+        updateGenerateBtn();
+      };
+      reader.readAsText(file);
     }
 
     function updateGenerateBtn() {
       const repName = document.getElementById('rep-name').value.trim();
-      generateBtn.disabled = !csvFile || !repName;
+      generateBtn.disabled = !csvFile || !repName || contactCount > MAX_CONTACTS || contactCount < 1;
     }
 
     document.getElementById('rep-name').addEventListener('input', updateGenerateBtn);

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Fierce Pulse Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #333;
+            padding: 40px;
+        }
+
+        .post {
+            width: 1080px;
+            height: 1080px;
+            font-family: 'DM Sans', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Full stock image background */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('stock-image.jpg');
+            background-size: cover;
+            background-position: 75% center;
+            z-index: 0;
+        }
+
+        /* Orange gradient overlay on left side */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(14, 14, 14, 0.97) 0%,
+                rgba(14, 14, 14, 0.95) 60%,
+                rgba(235, 117, 37, 0.85) 100%
+            );
+            z-index: 1;
+        }
+
+        /* Fade edge for smooth transition */
+        .overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100px;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(14, 14, 14, 0.9), transparent);
+            z-index: 1;
+        }
+
+        /* Background watermark */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
+        }
+
+        .watermark-row {
+            display: flex;
+            white-space: nowrap;
+            font-family: 'DM Serif Display', serif;
+            font-size: 80px;
+            color: #ffffff;
+            opacity: 0.06;
+            line-height: 1.2;
+            justify-content: flex-start;
+            gap: 0.4em;
+        }
+
+        .watermark-row:nth-child(2) {
+            margin-left: -15%;
+        }
+
+        .watermark-row:nth-child(3) {
+            margin-left: 5%;
+        }
+
+        /* Content - positioned on left side */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            z-index: 10;
+            text-align: left;
+            max-width: 580px;
+            padding: 40px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 12px 28px;
+            border-radius: 50px;
+            margin-bottom: 36px;
+        }
+
+        .headline {
+            font-family: 'DM Serif Display', serif;
+            font-size: 58px;
+            color: #ffffff;
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+        }
+
+        .headline .highlight {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subhead {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .details {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .detail-item {
+            text-align: left;
+        }
+
+        .detail-value {
+            font-family: 'DM Serif Display', serif;
+            font-size: 26px;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .divider {
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cta {
+            display: inline-block;
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            bottom: 50px;
+            left: 100px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 26px;
+            color: #ffffff;
+            z-index: 10;
+        }
+
+        /* Decorative line */
+        .line {
+            position: absolute;
+            top: 50px;
+            left: 100px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .line-solid {
+            width: 50px;
+            height: 3px;
+            background: #eb7525;
+        }
+
+        .line-fade {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #eb7525, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="post">
+        <!-- Stock image background -->
+        <div class="bg-image"></div>
+
+        <!-- Orange/dark overlay on left -->
+        <div class="overlay"></div>
+
+        <!-- Background watermark -->
+        <div class="watermark" aria-hidden="true">
+            <div class="watermark-row">
+                <span>Feedback</span>
+                <span>Clarity</span>
+                <span>Coaching</span>
+            </div>
+            <div class="watermark-row">
+                <span>Confrontation</span>
+                <span>Resilience</span>
+                <span>Trust</span>
+            </div>
+            <div class="watermark-row">
+                <span>Influence</span>
+                <span>Accountability</span>
+            </div>
+        </div>
+
+        <!-- Decorative line -->
+        <div class="line">
+            <div class="line-solid"></div>
+            <div class="line-fade"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="date-badge">Friday, April 17th</div>
+
+            <h1 class="headline">
+                We're opening the door to our first <span class="highlight">Fierce Pulse Learning</span>
+            </h1>
+
+            <p class="subhead">
+                A free 30-minute learning burst for leaders.<br>
+                One conversation that changes how your team works.
+            </p>
+
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-value">30 min</div>
+                    <div class="detail-label">Duration</div>
+                </div>
+                <div class="divider"></div>
+                <div class="detail-item">
+                    <div class="detail-value">11:00am ET</div>
+                    <div class="detail-label">Start Time</div>
+                </div>
+                <div class="divider"></div>
+                <div class="detail-item">
+                    <div class="detail-value">Free</div>
+                    <div class="detail-label">Virtual</div>
+                </div>
+            </div>
+
+            <div class="cta">Reserve Your Seat</div>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">Fierce</div>
+    </div>
+</body>
+</html>

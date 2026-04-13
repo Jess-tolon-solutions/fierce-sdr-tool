@@ -104,6 +104,7 @@ app.post('/api/process-csv', requireAuth, upload.single('csv'), async (req, res)
 
     // Validate required fields
     const validRecords = records.filter(r => r.first_name && r.company && r.domain);
+    const MAX_CONTACTS = 25;
 
     if (validRecords.length === 0) {
       res.write(`data: ${JSON.stringify({ error: 'No valid records found. Required: first_name, company, domain' })}\n\n`);
@@ -111,11 +112,23 @@ app.post('/api/process-csv', requireAuth, upload.single('csv'), async (req, res)
       return;
     }
 
+    if (validRecords.length > MAX_CONTACTS) {
+      res.write(`data: ${JSON.stringify({ error: `Too many contacts (${validRecords.length}). Maximum ${MAX_CONTACTS} per batch to ensure reliable processing.` })}\n\n`);
+      res.end();
+      return;
+    }
+
     res.write(`data: ${JSON.stringify({ total: validRecords.length, type: 'init' })}\n\n`);
 
-    // Process each contact
+    // Process each contact with spacing to avoid API overload
     for (let i = 0; i < validRecords.length; i++) {
       const contact = validRecords[i];
+
+      // Add delay between requests (skip first one)
+      if (i > 0) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+
       try {
         const result = await generateOutreach(contact, {
           repName,
@@ -165,14 +178,54 @@ async function generateOutreach(contact, options) {
     'Energetic': 'enthusiastic, dynamic, and engaging. Bring positive energy while remaining professional and credible.'
   };
 
+  // Check if this is the Foundation session
+  const isFoundationSession = fierceFriday && fierceFriday.topic && fierceFriday.topic.toLowerCase().includes('foundation');
+
+  const foundationContext = isFoundationSession ? `
+SESSION CONTEXT - FIERCE FOUNDATIONS:
+This is the launch of a NEW series of short, high-impact learning bursts. Use this context to craft compelling outreach:
+
+THE WHY: In a world moving faster than ever with AI disruption, shifting expectations, and constant change, organizations are rediscovering that human connection is still the ultimate competitive advantage. Fierce has championed this truth for more than two decades.
+
+WHAT THEY'LL EXPERIENCE IN 30 MINUTES:
+- The essential principles behind Fierce Conversations
+- Why most change efforts fail and how conversation transforms execution
+- Practical tools they can use immediately with their teams
+- A modern lens on leadership rooted in clarity, courage, and connection
+
+WHO IT'S FOR: Whether they have partnered with Fierce for years or are meeting us for the first time, this session gives a powerful introduction to what makes Fierce different and why organizations around the world rely on us to build stronger leaders and healthier cultures.
+
+KEY MESSAGE: "Let us redefine what is possible, one conversation at a time."
+
+Use these themes naturally in your outreach - don't copy verbatim, but weave in the relevant points based on their industry and situation.` : '';
+
   const fierceFridaySection = fierceFriday ? `
-FIERCE FRIDAY PROMOTION:
-Include a natural mention of the upcoming Fierce Friday session if it fits the context.
+FIERCE FRIDAY SESSION (PRIMARY CTA):
+This is the main goal of your outreach. You are EXCLUSIVELY inviting them to a free 30-minute virtual session.
 - Topic: ${fierceFriday.topic}
 - Date: ${fierceFriday.date}
 - Description: ${fierceFriday.description}
 - Registration Link: ${fierceFriday.link}
-Only include this if it genuinely adds value to the outreach. Don't force it.` : '';
+${foundationContext}
+
+THE ASK: Every email and LinkedIn DM should drive toward getting them to register for this session.
+- Lead with a personalized hook based on their context, industry, and notes
+- Close with an EXCLUSIVE, personal invitation to the session
+- Use language like "I wanted to exclusively invite you" or "You're one of a small group I'm personally reaching out to"
+- Emphasize: it's FREE, only 30 minutes, no commitment, no pitch - just valuable content
+- The email MUST include the registration link as a clickable hyperlink
+- Make it feel like a personal invite from a real person, not a marketing blast
+- Connect WHY this session is relevant to THEIR specific situation
+- Frame it as "on the house" - a gift, not a sales tactic
+
+REP HANDOFF HANDLING:
+- If the notes mention another person's name who previously worked with this contact (e.g., "spoke with Greg", "had calls with Tony", "worked with Sarah"), acknowledge that relationship
+- Example: "I know you connected with Tony a while back - he's moved on, but I wanted to personally reach out..."
+- This shows continuity and respect for the previous relationship
+- Then transition smoothly into the exclusive session invitation` : '';
+
+  const noFierceFridayInstructions = !fierceFriday ? `
+GOAL: Reconnect and start a conversation about their leadership development needs.` : '';
 
   const prompt = `You are writing sales outreach on behalf of ${repName}, a sales representative at Fierce, Inc. Fierce provides conversation-based leadership development programs that help organizations build accountable cultures through better conversations.
 
@@ -193,18 +246,22 @@ TONE: ${tone} - Be ${toneDescriptions[tone]}
 
 ${styleNotes ? `ADDITIONAL STYLE NOTES FROM REP:\n${styleNotes}\n` : ''}
 ${fierceFridaySection}
+${noFierceFridayInstructions}
 
 INSTRUCTIONS:
 1. Use the company domain to research/infer what the company does
 2. If industry is provided, reference real current trends and pain points in that industry
 3. If industry is blank, use the domain and any context to craft a strong message
-4. Read the notes field carefully and build off any prior relationship context
-5. Write as ${repName} - first person, authentic voice
-6. Keep email under 120 words
-7. Keep LinkedIn DM under 60 words
-8. NEVER use "I hope this finds you well" or any generic opener
+4. Read the notes field carefully - look for names of previous reps who worked this contact and acknowledge them by name
+5. If a previous rep is mentioned, open with something like "You spoke with [Name] a while back..." then transition to the invite
+6. Write as ${repName} - first person, authentic voice
+7. Keep email under 120 words
+8. Keep LinkedIn DM under 60 words
+9. NEVER use "I hope this finds you well" or any generic opener
 9. NEVER use em dashes (—)
 10. Sound like a real person who did real research
+${fierceFriday ? `11. The email body MUST include the registration link (${fierceFriday.link}) as a clickable hyperlink
+12. The LinkedIn DM should mention the session but can direct them to check their email for the link (keep it under 60 words)` : ''}
 
 Return a JSON object with exactly these fields:
 {
@@ -220,11 +277,30 @@ Return a JSON object with exactly these fields:
 
 Respond with ONLY the JSON object, no other text.`;
 
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 1500,
-    messages: [{ role: 'user', content: prompt }]
-  });
+  // Retry logic for API overload errors
+  let message;
+  let retries = 5;
+  let delay = 5000; // Start with 5 second delay
+
+  while (retries > 0) {
+    try {
+      message = await client.messages.create({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      });
+      break; // Success, exit loop
+    } catch (err) {
+      if (err.status === 529 && retries > 1) {
+        // Overloaded, wait and retry
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2; // Exponential backoff
+        retries--;
+      } else {
+        throw err; // Other error or out of retries
+      }
+    }
+  }
 
   const responseText = message.content[0].text;
 
