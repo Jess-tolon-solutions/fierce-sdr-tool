@@ -1057,10 +1057,8 @@
                 });
 
                 if (response.ok) {
-                    // Show inline confirmation (no redirect to keep URL consistent)
-                    formContainer.classList.add('hidden');
-                    confirmation.classList.add('show');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Redirect to thank you page
+                    window.location.href = 'thank-you.html';
                 } else {
                     // Handle error response
                     console.error('HubSpot submission error:', response.status);
