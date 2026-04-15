@@ -1170,8 +1170,6 @@
                 skipValidation: true
             };
 
-            console.log('Submitting to HubSpot:', JSON.stringify(formData, null, 2));
-
             try {
                 const response = await fetch(HUBSPOT_API_URL, {
                     method: 'POST',
@@ -1181,9 +1179,6 @@
                     body: JSON.stringify(formData)
                 });
 
-                const responseText = await response.text();
-                console.log('HubSpot response:', response.status, responseText);
-
                 if (response.ok) {
                     // Redirect to thank you page with track parameter
                     const trackParam = routing.track === 'Immediate outreach' ? 'immediate'
@@ -1191,10 +1186,10 @@
                         : 'newsletter';
                     window.location.href = `fierce-pulse-thankyou.html?track=${trackParam}`;
                 } else {
-                    console.error('HubSpot submission error:', response.status, responseText);
+                    console.error('HubSpot submission error:', response.status);
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
-                    alert('Something went wrong. Please try again. Error: ' + responseText);
+                    alert('Something went wrong. Please try again.');
                 }
             } catch (error) {
                 console.error('Network error:', error);
