@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — Fierce Pulse Learning | Fierce, Inc.</title>
+    <meta name="description" content="Thank you for completing the Fierce Pulse Learning survey.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #0e0e0e;
+            --color-accent: #eb7525;
+            --color-accent-hover: #d4691f;
+            --color-muted: #888888;
+            --color-surface: #f7f7f5;
+            --font-serif: 'DM Serif Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--color-bg);
+            border-bottom: 1px solid rgba(14, 14, 14, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo:hover {
+            color: var(--color-accent);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 40px;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200vw;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .watermark-row {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-serif);
+            font-size: clamp(72px, 8vw, 90px);
+            color: #0e0e0e;
+            opacity: 0.055;
+            line-height: 1.15;
+            justify-content: center;
+            gap: 0.35em;
+        }
+
+        .watermark-row:nth-child(2) {
+            margin-left: -15%;
+        }
+
+        .watermark-row:nth-child(3) {
+            margin-left: 10%;
+        }
+
+        /* Thank You Content */
+        .thankyou {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 560px;
+        }
+
+        .thankyou-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(235, 117, 37, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            border: 2px solid rgba(235, 117, 37, 0.2);
+        }
+
+        .thankyou-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--color-accent);
+        }
+
+        .thankyou-headline {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 5vw, 48px);
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .thankyou-message {
+            font-size: 18px;
+            color: var(--color-text);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px;
+            border-top: 1px solid rgba(14, 14, 14, 0.06);
+            margin-top: auto;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 680px) {
+            .nav-inner {
+                padding: 16px 24px;
+            }
+
+            .main {
+                padding: 60px 24px;
+            }
+
+            .footer {
+                padding: 32px 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="fierce-fridays.html" class="logo">Fierce</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Watermark -->
+        <div class="watermark" aria-hidden="true">
+            <div class="watermark-row">
+                <span>Feedback</span>
+                <span>Clarity</span>
+                <span>Accountability</span>
+                <span>Trust</span>
+                <span>Candor</span>
+            </div>
+            <div class="watermark-row">
+                <span>Confrontation</span>
+                <span>Alignment</span>
+                <span>Coaching</span>
+                <span>Resilience</span>
+            </div>
+            <div class="watermark-row">
+                <span>Influence</span>
+                <span>Transparency</span>
+                <span>Courage</span>
+                <span>Presence</span>
+            </div>
+        </div>
+
+        <!-- Thank You Content -->
+        <div class="thankyou">
+            <div class="thankyou-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h1 class="thankyou-headline" id="headline">Thank you.</h1>
+            <p class="thankyou-message" id="message">We appreciate you taking the time to share your feedback.</p>
+            <a href="fierce-fridays.html" class="btn btn-primary">Back to Fierce Pulse Learning</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="fierce-fridays.html" class="footer-logo">Fierce</a>
+            <p class="footer-copyright">© 2026 Fierce, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get track from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const track = urlParams.get('track');
+
+        const messages = {
+            immediate: {
+                headline: "Expect a personal message — soon.",
+                message: "Expect a personal message from our team within 24 hours — we read every response and we'll be referencing exactly what you shared."
+            },
+            nurture: {
+                headline: "We hear you. Watch your inbox.",
+                message: "Watch your inbox — we're sending you resources tailored to the challenge you described. Reply any time when you're ready to talk."
+            },
+            newsletter: {
+                headline: "Great to have you here.",
+                message: "Great to have you here. We'll keep you in the loop on upcoming sessions and leadership insights."
+            }
+        };
+
+        // Set content based on track
+        if (track && messages[track]) {
+            document.getElementById('headline').textContent = messages[track].headline;
+            document.getElementById('message').textContent = messages[track].message;
+        }
+    </script>
+</body>
+</html>

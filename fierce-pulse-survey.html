@@ -352,6 +352,22 @@
             opacity: 1;
         }
 
+        /* Checkbox style */
+        .option-check.checkbox {
+            border-radius: 4px;
+        }
+
+        .option-check.checkbox::after {
+            content: '✓';
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: none;
+            width: auto;
+            height: auto;
+            border-radius: 0;
+        }
+
         .option-text {
             font-size: 15px;
             color: var(--color-text);
@@ -768,40 +784,40 @@
                 <div class="section-label-line"></div>
             </div>
 
-            <!-- Q4: Pain point -->
+            <!-- Q4: Pain point (multi-select) -->
             <div class="q-card" data-q="3">
                 <div class="q-num">Question 04 <span class="q-required">*</span></div>
-                <div class="q-text">What leadership challenge is most alive for your team right now?</div>
-                <div class="q-sub">Choose the one that feels most urgent — the thing that, if it changed, would change everything.</div>
+                <div class="q-text">What leadership challenges are most alive for your team right now?</div>
+                <div class="q-sub">Select all that apply — choose the ones that feel most urgent.</div>
                 <div class="options" id="q3">
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Leaders avoid difficult feedback conversations">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="Leaders avoid difficult feedback conversations">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>Leaders avoid difficult feedback conversations</strong><small>People know there's a problem but nobody names it</small></div>
                     </label>
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Misalignment between senior leaders and their teams">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="Misalignment between senior leaders and their teams">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>Misalignment between senior leaders and their teams</strong><small>What's said in the room doesn't match what happens after</small></div>
                     </label>
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="High-potential people leaving">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="High-potential people leaving">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>High-potential people leaving</strong><small>Talent is walking out the door and nobody's saying why</small></div>
                     </label>
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Culture isn't matching the company we're building">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="Culture isn't matching the company we're building">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>Culture isn't matching the company we're trying to build</strong><small>The values are on the wall but not in the room</small></div>
                     </label>
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Change initiatives stalling">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="Change initiatives keep stalling">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>Change initiatives keep stalling</strong><small>We launch things, but the hard conversations never happen</small></div>
                     </label>
-                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Just exploring">
-                        <div class="option-check"></div>
+                    <label class="option-label" onclick="selectOption(this,'q3','checkbox')">
+                        <input type="checkbox" name="q3" value="Just exploring">
+                        <div class="option-check checkbox"></div>
                         <div class="option-text"><strong>I'm just exploring — no active burning issue</strong></div>
                     </label>
                 </div>
@@ -981,7 +997,7 @@
             if (document.getElementById('qEmail').value.trim()) filled++;
             if (answers.q1) filled++;
             if (answers.q2) filled++;
-            if (answers.q3) filled++;
+            if (answers.q3 && answers.q3.length > 0) filled++;
             if (answers.q4) filled++;
             if (answers.q5) filled++;
             if (document.getElementById('q6').value.trim()) filled++;
@@ -1022,8 +1038,10 @@
             };
             score += sizeScores[answers.q2] || 0;
 
-            // Pain point — anything except "exploring" adds points
-            if (answers.q3 && answers.q3 !== 'Just exploring') score += 15;
+            // Pain point — anything except only "exploring" adds points
+            const painPoints = Array.isArray(answers.q3) ? answers.q3 : [];
+            const hasRealPainPoint = painPoints.some(p => p !== 'Just exploring');
+            if (hasRealPainPoint) score += 15;
 
             // Urgency
             const urgencyScores = {
@@ -1094,7 +1112,8 @@
                 alert('Please enter a valid email address.');
                 return;
             }
-            if (!answers.q1 || !answers.q2 || !answers.q3 || !answers.q4 || !answers.q5 || !answers.q7) {
+            const q3Values = Array.isArray(answers.q3) ? answers.q3 : [];
+            if (!answers.q1 || !answers.q2 || q3Values.length === 0 || !answers.q4 || !answers.q5 || !answers.q7) {
                 alert('Please answer all required questions (marked with *) before submitting.');
                 return;
             }
@@ -1130,7 +1149,7 @@
                     { name: 'email', value: email },
                     { name: 'fpl_role', value: answers.q1 },
                     { name: 'fpl_org_size', value: answers.q2 },
-                    { name: 'fpl_pain_point', value: answers.q3 },
+                    { name: 'fpl_pain_point', value: q3Values.join(';') },
                     { name: 'fpl_urgency', value: answers.q4 },
                     { name: 'fpl_session_score', value: String(answers.q5) },
                     { name: 'fpl_open_takeaway', value: document.getElementById('q6').value.trim() },
@@ -1157,19 +1176,11 @@
                 });
 
                 if (response.ok) {
-                    // Show thank-you
-                    document.getElementById('survey-form').style.display = 'none';
-                    document.querySelector('.progress-wrap').style.display = 'none';
-                    const ty = document.getElementById('thank-you');
-                    ty.style.display = 'block';
-                    document.getElementById('ty-headline').textContent = routing.headline;
-                    document.getElementById('ty-body').textContent = routing.body;
-                    document.getElementById('ty-next').textContent = routing.next;
-                    const tagEl = document.getElementById('ty-tag');
-                    tagEl.textContent = routing.tag;
-                    tagEl.className = 'routing-tag ' + routing.tagClass;
-
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Redirect to thank you page with track parameter
+                    const trackParam = routing.track === 'Immediate outreach' ? 'immediate'
+                        : routing.track === 'Nurture sequence' ? 'nurture'
+                        : 'newsletter';
+                    window.location.href = `fierce-pulse-thankyou.html?track=${trackParam}`;
                 } else {
                     console.error('HubSpot submission error:', response.status);
                     submitBtn.disabled = false;
