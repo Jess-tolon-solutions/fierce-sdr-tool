@@ -747,7 +747,7 @@
                         <div class="option-text"><strong>201–1,000</strong></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q2','radio')">
-                        <input type="radio" name="q2" value="1000+">
+                        <input type="radio" name="q2" value="Over 1000">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>1,000+</strong></div>
                     </label>
@@ -773,7 +773,7 @@
                         <div class="option-text"><strong>Leaders avoid difficult feedback conversations</strong><small>People know there's a problem but nobody names it</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Misalignment between senior leaders and teams">
+                        <input type="radio" name="q3" value="Misalignment between senior leaders and their teams">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>Misalignment between senior leaders and their teams</strong><small>What's said in the room doesn't match what happens after</small></div>
                     </label>
@@ -783,7 +783,7 @@
                         <div class="option-text"><strong>High-potential people leaving</strong><small>Talent is walking out the door and nobody's saying why</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q3','radio')">
-                        <input type="radio" name="q3" value="Culture not matching company vision">
+                        <input type="radio" name="q3" value="Culture isn't matching the company we're building">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>Culture isn't matching the company we're trying to build</strong><small>The values are on the wall but not in the room</small></div>
                     </label>
@@ -806,17 +806,17 @@
                 <div class="q-text">How urgent is this challenge for you?</div>
                 <div class="options" id="q4">
                     <label class="option-label" onclick="selectOption(this,'q4','radio')">
-                        <input type="radio" name="q4" value="Affecting us now (30-60 days)">
+                        <input type="radio" name="q4" value="It's affecting us right now">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>It's affecting us right now</strong><small>We need to move on this in the next 30–60 days</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q4','radio')">
-                        <input type="radio" name="q4" value="On roadmap this quarter">
+                        <input type="radio" name="q4" value="It's on our roadmap this quarter">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>It's on our roadmap this quarter</strong><small>We're planning and building budget conversation internally</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q4','radio')">
-                        <input type="radio" name="q4" value="Gathering information">
+                        <input type="radio" name="q4" value="I'm gathering information">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>I'm gathering information</strong><small>Not yet a formal priority, but I'm paying attention</small></div>
                     </label>
@@ -866,22 +866,22 @@
                 <div class="q-sub">We'll use this to send you something genuinely relevant — not a generic follow-up.</div>
                 <div class="options" id="q7">
                     <label class="option-label" onclick="selectOption(this,'q7','radio')">
-                        <input type="radio" name="q7" value="Real conversation about my team">
+                        <input type="radio" name="q7" value="A conversation about what this could look like for my team">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>A real conversation about what this could look like for my team</strong><small>I want to understand what a Fierce engagement would actually involve</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q7','radio')">
-                        <input type="radio" name="q7" value="Information about bringing session to org">
+                        <input type="radio" name="q7" value="Information about bringing a session to my organization">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>Information about bringing a session to my organization</strong><small>I'm thinking about whether this could work for my team specifically</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q7','radio')">
-                        <input type="radio" name="q7" value="Resources to dig deeper">
+                        <input type="radio" name="q7" value="Resources to dig deeper on my own first">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>Resources to dig deeper on my own first</strong><small>I'm not ready to talk — send me something I can read</small></div>
                     </label>
                     <label class="option-label" onclick="selectOption(this,'q7','radio')">
-                        <input type="radio" name="q7" value="Keep me in the loop">
+                        <input type="radio" name="q7" value="Just keep me in the loop">
                         <div class="option-check"></div>
                         <div class="option-text"><strong>Just keep me in the loop on future sessions and content</strong></div>
                     </label>
@@ -929,7 +929,7 @@
     <script>
         // HubSpot configuration
         const HUBSPOT_PORTAL_ID = '21395487';
-        const HUBSPOT_FORM_ID = '951191ba-87fe-4586-ad03-680131282143'; // Update with survey form ID
+        const HUBSPOT_FORM_ID = '2ZKf7K-1KQK28JE72hAiCog';
         const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
 
         // State
@@ -1006,7 +1006,7 @@
 
             // Org size
             const sizeScores = {
-                '1000+': 15,
+                'Over 1000': 15,
                 '201-1000': 12,
                 '51-200': 8,
                 '1-50': 4
@@ -1018,9 +1018,9 @@
 
             // Urgency
             const urgencyScores = {
-                'Affecting us now (30-60 days)': 25,
-                'On roadmap this quarter': 15,
-                'Gathering information': 5,
+                "It's affecting us right now": 25,
+                "It's on our roadmap this quarter": 15,
+                "I'm gathering information": 5,
                 'No specific urgency': 0
             };
             score += urgencyScores[answers.q4] || 0;
@@ -1031,10 +1031,10 @@
 
             // Next step intent
             const intentScores = {
-                'Real conversation about my team': 25,
-                'Information about bringing session to org': 20,
-                'Resources to dig deeper': 10,
-                'Keep me in the loop': 2
+                'A conversation about what this could look like for my team': 25,
+                'Information about bringing a session to my organization': 20,
+                'Resources to dig deeper on my own first': 10,
+                'Just keep me in the loop': 2
             };
             score += intentScores[answers.q7] || 0;
 
@@ -1046,7 +1046,7 @@
 
         function getRouting(score) {
             if (score >= 80) return {
-                track: 'Priority Outreach',
+                track: 'Immediate outreach',
                 tag: 'Priority Outreach',
                 tagClass: 'tag-hot',
                 headline: 'Expect a personal message — soon.',
@@ -1054,7 +1054,7 @@
                 next: "In the meantime, check your inbox for a resource on the specific challenge you named."
             };
             if (score >= 45) return {
-                track: 'Nurture Sequence',
+                track: 'Nurture sequence',
                 tag: 'Leadership Sequence',
                 tagClass: 'tag-nurture',
                 headline: 'We hear you. Watch your inbox.',
@@ -1107,16 +1107,16 @@
             const hutk = getHubSpotCookie();
             const formData = {
                 fields: [
-                    { name: 'role', value: answers.q1 },
-                    { name: 'org_size', value: answers.q2 },
-                    { name: 'pain_point', value: answers.q3 },
-                    { name: 'urgency', value: answers.q4 },
-                    { name: 'session_score', value: String(answers.q5) },
-                    { name: 'open_takeaway', value: document.getElementById('q6').value.trim() },
-                    { name: 'next_step_intent', value: answers.q7 },
-                    { name: 'referral_mention', value: document.getElementById('q8').value.trim() },
-                    { name: 'routing_score', value: String(score) },
-                    { name: 'routing_track', value: routing.track }
+                    { name: 'fpl_role', value: answers.q1 },
+                    { name: 'fpl_org_size', value: answers.q2 },
+                    { name: 'fpl_pain_point', value: answers.q3 },
+                    { name: 'fpl_urgency', value: answers.q4 },
+                    { name: 'fpl_session_score', value: String(answers.q5) },
+                    { name: 'fpl_open_takeaway', value: document.getElementById('q6').value.trim() },
+                    { name: 'fpl_next_step_intent', value: answers.q7 },
+                    { name: 'fpl_referral_mention', value: document.getElementById('q8').value.trim() },
+                    { name: 'fpl_routing_score', value: String(score) },
+                    { name: 'fpl_routing_track', value: routing.track }
                 ],
                 context: {
                     ...(hutk && { hutk: hutk }),
