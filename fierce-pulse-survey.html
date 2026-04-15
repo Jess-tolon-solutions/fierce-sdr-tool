@@ -692,9 +692,16 @@
                 <div class="section-label-line"></div>
             </div>
 
-            <!-- Q1: Role -->
-            <div class="q-card" data-q="1">
+            <!-- Q1: Email -->
+            <div class="q-card" data-q="email">
                 <div class="q-num">Question 01 <span class="q-required">*</span></div>
+                <div class="q-text">Your email address</div>
+                <input type="email" id="qEmail" placeholder="you@company.com" required>
+            </div>
+
+            <!-- Q2: Role -->
+            <div class="q-card" data-q="1">
+                <div class="q-num">Question 02 <span class="q-required">*</span></div>
                 <div class="q-text">Which best describes your role?</div>
                 <div class="q-sub">This helps us personalize what we send you.</div>
                 <div class="options" id="q1">
@@ -726,9 +733,9 @@
                 </div>
             </div>
 
-            <!-- Q2: Org size -->
+            <!-- Q3: Org size -->
             <div class="q-card" data-q="2">
-                <div class="q-num">Question 02 <span class="q-required">*</span></div>
+                <div class="q-num">Question 03 <span class="q-required">*</span></div>
                 <div class="q-text">How many people are in your organization?</div>
                 <div class="options grid-2" id="q2">
                     <label class="option-label" onclick="selectOption(this,'q2','radio')">
@@ -761,9 +768,9 @@
                 <div class="section-label-line"></div>
             </div>
 
-            <!-- Q3: Pain point -->
+            <!-- Q4: Pain point -->
             <div class="q-card" data-q="3">
-                <div class="q-num">Question 03 <span class="q-required">*</span></div>
+                <div class="q-num">Question 04 <span class="q-required">*</span></div>
                 <div class="q-text">What leadership challenge is most alive for your team right now?</div>
                 <div class="q-sub">Choose the one that feels most urgent — the thing that, if it changed, would change everything.</div>
                 <div class="options" id="q3">
@@ -800,9 +807,9 @@
                 </div>
             </div>
 
-            <!-- Q4: Urgency -->
+            <!-- Q5: Urgency -->
             <div class="q-card" data-q="4">
-                <div class="q-num">Question 04 <span class="q-required">*</span></div>
+                <div class="q-num">Question 05 <span class="q-required">*</span></div>
                 <div class="q-text">How urgent is this challenge for you?</div>
                 <div class="options" id="q4">
                     <label class="option-label" onclick="selectOption(this,'q4','radio')">
@@ -835,18 +842,18 @@
                 <div class="section-label-line"></div>
             </div>
 
-            <!-- Q5: Session score -->
+            <!-- Q6: Session score -->
             <div class="q-card" data-q="5">
-                <div class="q-num">Question 05 <span class="q-required">*</span></div>
+                <div class="q-num">Question 06 <span class="q-required">*</span></div>
                 <div class="q-text">How valuable was today's session for you?</div>
                 <div class="q-sub">1 = not useful, 10 = immediately applicable</div>
                 <div class="scale-wrap" id="q5"></div>
                 <div class="scale-labels"><span>Not useful</span><span>Immediately applicable</span></div>
             </div>
 
-            <!-- Q6: Open takeaway -->
+            <!-- Q7: Open takeaway -->
             <div class="q-card" data-q="6">
-                <div class="q-num">Question 06</div>
+                <div class="q-num">Question 07</div>
                 <div class="q-text">What's the one thing from today you'll actually use?</div>
                 <div class="q-sub">This can be a framework, a phrase, a realization — anything that stuck.</div>
                 <textarea id="q6" placeholder="What came to mind during or after the session..." rows="3"></textarea>
@@ -859,9 +866,9 @@
                 <div class="section-label-line"></div>
             </div>
 
-            <!-- Q7: Next step intent -->
+            <!-- Q8: Next step intent -->
             <div class="q-card" data-q="7">
-                <div class="q-num">Question 07 <span class="q-required">*</span></div>
+                <div class="q-num">Question 08 <span class="q-required">*</span></div>
                 <div class="q-text">What would be most useful to you right now?</div>
                 <div class="q-sub">We'll use this to send you something genuinely relevant — not a generic follow-up.</div>
                 <div class="options" id="q7">
@@ -888,9 +895,9 @@
                 </div>
             </div>
 
-            <!-- Q8: Referral mention -->
+            <!-- Q9: Referral mention -->
             <div class="q-card" data-q="8">
-                <div class="q-num">Question 08</div>
+                <div class="q-num">Question 09</div>
                 <div class="q-text">Is there anyone in your world who should experience a Fierce session?</div>
                 <div class="q-sub">If a specific person or team came to mind today, we'd love an introduction. No pressure — just an open door.</div>
                 <input type="text" id="q8" placeholder="Name, company, or just describe who they are...">
@@ -934,7 +941,7 @@
 
         // State
         const answers = {};
-        const TOTAL_Q = 8;
+        const TOTAL_Q = 9;
 
         // Option selection
         function selectOption(el, qId, type) {
@@ -971,6 +978,7 @@
         // Progress
         function updateProgress() {
             let filled = 0;
+            if (document.getElementById('qEmail').value.trim()) filled++;
             if (answers.q1) filled++;
             if (answers.q2) filled++;
             if (answers.q3) filled++;
@@ -987,6 +995,7 @@
             document.getElementById('progress-label').textContent = `Question ${q} of ${TOTAL_Q}`;
         }
 
+        document.getElementById('qEmail').addEventListener('input', updateProgress);
         document.getElementById('q6').addEventListener('input', updateProgress);
         document.getElementById('q8').addEventListener('input', updateProgress);
 
@@ -1071,9 +1080,20 @@
             };
         }
 
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
         // Submit
         async function submitSurvey() {
             // Validation
+            const email = document.getElementById('qEmail').value.trim();
+            if (!email || !validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
             if (!answers.q1 || !answers.q2 || !answers.q3 || !answers.q4 || !answers.q5 || !answers.q7) {
                 alert('Please answer all required questions (marked with *) before submitting.');
                 return;
@@ -1107,6 +1127,7 @@
             const hutk = getHubSpotCookie();
             const formData = {
                 fields: [
+                    { name: 'email', value: email },
                     { name: 'fpl_role', value: answers.q1 },
                     { name: 'fpl_org_size', value: answers.q2 },
                     { name: 'fpl_pain_point', value: answers.q3 },
