@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Session Survey — Fierce Pulse Learning | Fierce, Inc.</title>
+    <meta name="description" content="Share your feedback from today's Fierce Pulse Learning session. Your answers shape what comes next.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #0e0e0e;
+            --color-accent: #eb7525;
+            --color-accent-hover: #d4691f;
+            --color-muted: #888888;
+            --color-surface: #f7f7f5;
+            --color-error: #c73e3e;
+            --font-serif: 'DM Serif Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--color-bg);
+            border-bottom: 1px solid rgba(14, 14, 14, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero */
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200vw;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .hero-watermark-row {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-serif);
+            font-size: clamp(72px, 8vw, 90px);
+            color: #0e0e0e;
+            opacity: 0.055;
+            line-height: 1.15;
+            justify-content: center;
+            gap: 0.35em;
+        }
+
+        .hero-watermark-row:nth-child(2) {
+            margin-left: -15%;
+        }
+
+        .hero-watermark-row:nth-child(3) {
+            margin-left: 10%;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 100px 40px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+        }
+
+        .hero-headline {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 5vw, 52px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .hero-headline .gradient-text {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subhead {
+            font-size: 18px;
+            color: var(--color-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            background: var(--color-surface);
+            border-bottom: 1px solid rgba(14, 14, 14, 0.08);
+            padding: 16px 40px;
+            position: sticky;
+            top: 68px;
+            z-index: 90;
+        }
+
+        .progress-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-muted);
+            white-space: nowrap;
+            min-width: 100px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(14, 14, 14, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--color-accent);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-count {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-accent);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Form */
+        .form-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Section dividers */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 48px 0 24px;
+        }
+
+        .section-label:first-child {
+            margin-top: 0;
+        }
+
+        .section-label-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(14, 14, 14, 0.1);
+        }
+
+        .section-label-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            white-space: nowrap;
+        }
+
+        /* Question card */
+        .q-card {
+            background: var(--color-bg);
+            border: 2px solid rgba(14, 14, 14, 0.08);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .q-card:focus-within {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 4px rgba(235, 117, 37, 0.08);
+        }
+
+        .q-num {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+
+        .q-required {
+            color: var(--color-accent);
+        }
+
+        .q-text {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            color: var(--color-text);
+            line-height: 1.3;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .q-sub {
+            font-size: 14px;
+            color: var(--color-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Option tiles */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .options.grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            border: 2px solid rgba(14, 14, 14, 0.08);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+            background: var(--color-surface);
+            user-select: none;
+        }
+
+        .option-label:hover {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.06);
+        }
+
+        .option-label input {
+            display: none;
+        }
+
+        .option-label.checked {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.08);
+        }
+
+        .option-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(14, 14, 14, 0.2);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            background: #fff;
+        }
+
+        .option-label.checked .option-check {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+        }
+
+        .option-check::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .option-label.checked .option-check::after {
+            opacity: 1;
+        }
+
+        .option-text {
+            font-size: 15px;
+            color: var(--color-text);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .option-text strong {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .option-text small {
+            color: var(--color-muted);
+            font-size: 13px;
+        }
+
+        /* Scale / NPS */
+        .scale-wrap {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .scale-btn {
+            flex: 1;
+            min-width: 44px;
+            height: 48px;
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 8px;
+            background: var(--color-surface);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: var(--font-sans);
+        }
+
+        .scale-btn:hover {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.06);
+        }
+
+        .scale-btn.selected {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #fff;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--color-muted);
+        }
+
+        /* Text inputs */
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            color: var(--color-text);
+            background: var(--color-surface);
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            line-height: 1.6;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: var(--color-accent);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(235, 117, 37, 0.08);
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        textarea::placeholder,
+        input::placeholder {
+            color: var(--color-muted);
+        }
+
+        /* Submit area */
+        .submit-area {
+            text-align: center;
+            padding-top: 32px;
+        }
+
+        .submit-btn {
+            background: var(--color-accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 18px 48px;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: var(--color-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-note {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+
+        /* Thank-you screen */
+        #thank-you {
+            display: none;
+            text-align: center;
+            padding: 100px 40px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .ty-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(235, 117, 37, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            border: 2px solid rgba(235, 117, 37, 0.2);
+        }
+
+        .ty-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--color-accent);
+        }
+
+        #thank-you h2 {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        #thank-you p {
+            color: var(--color-muted);
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        #thank-you .ty-next {
+            color: var(--color-text);
+            font-size: 15px;
+            margin-top: 24px;
+        }
+
+        .routing-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: 24px;
+        }
+
+        .tag-hot {
+            background: #FDECEA;
+            color: #C62828;
+            border: 1px solid #F5A5A5;
+        }
+
+        .tag-nurture {
+            background: #FFF8E1;
+            color: #F57F17;
+            border: 1px solid #FFE082;
+        }
+
+        .tag-newsletter {
+            background: var(--color-surface);
+            color: var(--color-muted);
+            border: 1px solid rgba(14, 14, 14, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px;
+            border-top: 1px solid rgba(14, 14, 14, 0.06);
+            margin-top: 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 680px) {
+            .nav-inner {
+                padding: 16px 24px;
+            }
+
+            .hero {
+                padding: 80px 24px 40px;
+            }
+
+            .progress-wrap {
+                padding: 14px 24px;
+                top: 56px;
+            }
+
+            .form-wrap {
+                padding: 32px 16px 60px;
+            }
+
+            .q-card {
+                padding: 20px;
+            }
+
+            .options.grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 32px 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="logo">Fierce</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero-wrapper">
+        <div class="hero-watermark" aria-hidden="true">
+            <div class="hero-watermark-row">
+                <span>Feedback</span>
+                <span>Clarity</span>
+                <span>Accountability</span>
+                <span>Trust</span>
+                <span>Candor</span>
+            </div>
+            <div class="hero-watermark-row">
+                <span>Confrontation</span>
+                <span>Alignment</span>
+                <span>Coaching</span>
+                <span>Resilience</span>
+            </div>
+            <div class="hero-watermark-row">
+                <span>Influence</span>
+                <span>Transparency</span>
+                <span>Courage</span>
+                <span>Presence</span>
+            </div>
+        </div>
+
+        <section class="hero">
+            <div class="hero-eyebrow">Post-Session Reflection</div>
+            <h1 class="hero-headline">
+                What's the <span class="gradient-text">conversation</span> you're not having?
+            </h1>
+            <p class="hero-subhead">
+                3 minutes. Your answers shape what comes next — for your team and for you.
+            </p>
+        </section>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+        <div class="progress-inner">
+            <div class="progress-label" id="progress-label">Question 1 of 8</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-count" id="progress-count">0%</div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div id="survey-form">
+        <div class="form-wrap">
+
+            <!-- SECTION 1: About You -->
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <div class="section-label-text">About You</div>
+                <div class="section-label-line"></div>
+            </div>
+
+            <!-- Q1: Role -->
+            <div class="q-card" data-q="1">
+                <div class="q-num">Question 01 <span class="q-required">*</span></div>
+                <div class="q-text">Which best describes your role?</div>
+                <div class="q-sub">This helps us personalize what we send you.</div>
+                <div class="options" id="q1">
+                    <label class="option-label" onclick="selectOption(this,'q1','radio')">
+                        <input type="radio" name="q1" value="CHRO / CLO / VP of HR or L&D">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>CHRO / CLO / VP of HR or L&D</strong><small>I own the leadership development strategy and budget</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q1','radio')">
+                        <input type="radio" name="q1" value="Director or Manager of L&D / HR">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Director or Manager of L&D / HR</strong><small>I design and run programs, influence purchasing</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q1','radio')">
+                        <input type="radio" name="q1" value="CEO / COO / Executive Leader">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>CEO / COO / Executive Leader</strong><small>I'm responsible for overall organizational performance</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q1','radio')">
+                        <input type="radio" name="q1" value="Individual contributor / Team leader">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Individual contributor / Team leader</strong><small>I manage a team or want to grow as a leader</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q1','radio')">
+                        <input type="radio" name="q1" value="Other">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Something else</strong></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Q2: Org size -->
+            <div class="q-card" data-q="2">
+                <div class="q-num">Question 02 <span class="q-required">*</span></div>
+                <div class="q-text">How many people are in your organization?</div>
+                <div class="options grid-2" id="q2">
+                    <label class="option-label" onclick="selectOption(this,'q2','radio')">
+                        <input type="radio" name="q2" value="1-50">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>1–50</strong></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q2','radio')">
+                        <input type="radio" name="q2" value="51-200">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>51–200</strong></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q2','radio')">
+                        <input type="radio" name="q2" value="201-1000">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>201–1,000</strong></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q2','radio')">
+                        <input type="radio" name="q2" value="1000+">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>1,000+</strong></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION 2: The Real Problem -->
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <div class="section-label-text">The Real Problem</div>
+                <div class="section-label-line"></div>
+            </div>
+
+            <!-- Q3: Pain point -->
+            <div class="q-card" data-q="3">
+                <div class="q-num">Question 03 <span class="q-required">*</span></div>
+                <div class="q-text">What leadership challenge is most alive for your team right now?</div>
+                <div class="q-sub">Choose the one that feels most urgent — the thing that, if it changed, would change everything.</div>
+                <div class="options" id="q3">
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="Leaders avoid difficult feedback conversations">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Leaders avoid difficult feedback conversations</strong><small>People know there's a problem but nobody names it</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="Misalignment between senior leaders and teams">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Misalignment between senior leaders and their teams</strong><small>What's said in the room doesn't match what happens after</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="High-potential people leaving">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>High-potential people leaving</strong><small>Talent is walking out the door and nobody's saying why</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="Culture not matching company vision">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Culture isn't matching the company we're trying to build</strong><small>The values are on the wall but not in the room</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="Change initiatives stalling">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Change initiatives keep stalling</strong><small>We launch things, but the hard conversations never happen</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q3','radio')">
+                        <input type="radio" name="q3" value="Just exploring">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>I'm just exploring — no active burning issue</strong></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Q4: Urgency -->
+            <div class="q-card" data-q="4">
+                <div class="q-num">Question 04 <span class="q-required">*</span></div>
+                <div class="q-text">How urgent is this challenge for you?</div>
+                <div class="options" id="q4">
+                    <label class="option-label" onclick="selectOption(this,'q4','radio')">
+                        <input type="radio" name="q4" value="Affecting us now (30-60 days)">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>It's affecting us right now</strong><small>We need to move on this in the next 30–60 days</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q4','radio')">
+                        <input type="radio" name="q4" value="On roadmap this quarter">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>It's on our roadmap this quarter</strong><small>We're planning and building budget conversation internally</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q4','radio')">
+                        <input type="radio" name="q4" value="Gathering information">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>I'm gathering information</strong><small>Not yet a formal priority, but I'm paying attention</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q4','radio')">
+                        <input type="radio" name="q4" value="No specific urgency">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>No specific urgency — I joined to learn</strong></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Session Feedback -->
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <div class="section-label-text">Session Feedback</div>
+                <div class="section-label-line"></div>
+            </div>
+
+            <!-- Q5: Session score -->
+            <div class="q-card" data-q="5">
+                <div class="q-num">Question 05 <span class="q-required">*</span></div>
+                <div class="q-text">How valuable was today's session for you?</div>
+                <div class="q-sub">1 = not useful, 10 = immediately applicable</div>
+                <div class="scale-wrap" id="q5"></div>
+                <div class="scale-labels"><span>Not useful</span><span>Immediately applicable</span></div>
+            </div>
+
+            <!-- Q6: Open takeaway -->
+            <div class="q-card" data-q="6">
+                <div class="q-num">Question 06</div>
+                <div class="q-text">What's the one thing from today you'll actually use?</div>
+                <div class="q-sub">This can be a framework, a phrase, a realization — anything that stuck.</div>
+                <textarea id="q6" placeholder="What came to mind during or after the session..." rows="3"></textarea>
+            </div>
+
+            <!-- SECTION 4: What's Next -->
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <div class="section-label-text">What's Next</div>
+                <div class="section-label-line"></div>
+            </div>
+
+            <!-- Q7: Next step intent -->
+            <div class="q-card" data-q="7">
+                <div class="q-num">Question 07 <span class="q-required">*</span></div>
+                <div class="q-text">What would be most useful to you right now?</div>
+                <div class="q-sub">We'll use this to send you something genuinely relevant — not a generic follow-up.</div>
+                <div class="options" id="q7">
+                    <label class="option-label" onclick="selectOption(this,'q7','radio')">
+                        <input type="radio" name="q7" value="Real conversation about my team">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>A real conversation about what this could look like for my team</strong><small>I want to understand what a Fierce engagement would actually involve</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q7','radio')">
+                        <input type="radio" name="q7" value="Information about bringing session to org">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Information about bringing a session to my organization</strong><small>I'm thinking about whether this could work for my team specifically</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q7','radio')">
+                        <input type="radio" name="q7" value="Resources to dig deeper">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Resources to dig deeper on my own first</strong><small>I'm not ready to talk — send me something I can read</small></div>
+                    </label>
+                    <label class="option-label" onclick="selectOption(this,'q7','radio')">
+                        <input type="radio" name="q7" value="Keep me in the loop">
+                        <div class="option-check"></div>
+                        <div class="option-text"><strong>Just keep me in the loop on future sessions and content</strong></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Q8: Referral mention -->
+            <div class="q-card" data-q="8">
+                <div class="q-num">Question 08</div>
+                <div class="q-text">Is there anyone in your world who should experience a Fierce session?</div>
+                <div class="q-sub">If a specific person or team came to mind today, we'd love an introduction. No pressure — just an open door.</div>
+                <input type="text" id="q8" placeholder="Name, company, or just describe who they are...">
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-area">
+                <button class="submit-btn" id="submitBtn" onclick="submitSurvey()">Submit my responses</button>
+                <div class="submit-note">Your responses are used only by the Fierce team to personalize your follow-up.<br>We don't sell or share your information.</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Thank-you state -->
+    <div id="thank-you">
+        <div class="ty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h2 id="ty-headline">Thank you.</h2>
+        <p id="ty-body">We read every response — your answers go directly to the Fierce team and shape what lands in your inbox next.</p>
+        <p id="ty-next" class="ty-next"></p>
+        <div id="ty-tag"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="/" class="footer-logo">Fierce</a>
+            <p class="footer-copyright">© 2026 Fierce, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // HubSpot configuration
+        const HUBSPOT_PORTAL_ID = '21395487';
+        const HUBSPOT_FORM_ID = '951191ba-87fe-4586-ad03-680131282143'; // Update with survey form ID
+        const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+
+        // State
+        const answers = {};
+        const TOTAL_Q = 8;
+
+        // Option selection
+        function selectOption(el, qId, type) {
+            const container = document.getElementById(qId);
+            if (type === 'radio') {
+                container.querySelectorAll('.option-label').forEach(l => l.classList.remove('checked'));
+            }
+            el.classList.toggle('checked', type === 'radio' ? true : !el.classList.contains('checked'));
+            const input = el.querySelector('input');
+            if (type === 'radio') input.checked = true;
+            else input.checked = el.classList.contains('checked');
+            answers[qId] = type === 'radio'
+                ? input.value
+                : Array.from(container.querySelectorAll('.checked input')).map(i => i.value);
+            updateProgress();
+        }
+
+        // Scale (1-10)
+        const scaleWrap = document.getElementById('q5');
+        for (let i = 1; i <= 10; i++) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'scale-btn';
+            btn.textContent = i;
+            btn.addEventListener('click', function() {
+                scaleWrap.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                answers['q5'] = i;
+                updateProgress();
+            });
+            scaleWrap.appendChild(btn);
+        }
+
+        // Progress
+        function updateProgress() {
+            let filled = 0;
+            if (answers.q1) filled++;
+            if (answers.q2) filled++;
+            if (answers.q3) filled++;
+            if (answers.q4) filled++;
+            if (answers.q5) filled++;
+            if (document.getElementById('q6').value.trim()) filled++;
+            if (answers.q7) filled++;
+            if (document.getElementById('q8').value.trim()) filled++;
+
+            const pct = Math.round((filled / TOTAL_Q) * 100);
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-count').textContent = pct + '%';
+            const q = Math.min(filled + 1, TOTAL_Q);
+            document.getElementById('progress-label').textContent = `Question ${q} of ${TOTAL_Q}`;
+        }
+
+        document.getElementById('q6').addEventListener('input', updateProgress);
+        document.getElementById('q8').addEventListener('input', updateProgress);
+
+        // Routing logic
+        function computeRouting() {
+            let score = 0;
+
+            // Role scoring
+            const roleScores = {
+                'CHRO / CLO / VP of HR or L&D': 30,
+                'CEO / COO / Executive Leader': 25,
+                'Director or Manager of L&D / HR': 20,
+                'Individual contributor / Team leader': 8,
+                'Other': 5
+            };
+            score += roleScores[answers.q1] || 0;
+
+            // Org size
+            const sizeScores = {
+                '1000+': 15,
+                '201-1000': 12,
+                '51-200': 8,
+                '1-50': 4
+            };
+            score += sizeScores[answers.q2] || 0;
+
+            // Pain point — anything except "exploring" adds points
+            if (answers.q3 && answers.q3 !== 'Just exploring') score += 15;
+
+            // Urgency
+            const urgencyScores = {
+                'Affecting us now (30-60 days)': 25,
+                'On roadmap this quarter': 15,
+                'Gathering information': 5,
+                'No specific urgency': 0
+            };
+            score += urgencyScores[answers.q4] || 0;
+
+            // Session value
+            if (answers.q5 >= 8) score += 15;
+            else if (answers.q5 >= 6) score += 8;
+
+            // Next step intent
+            const intentScores = {
+                'Real conversation about my team': 25,
+                'Information about bringing session to org': 20,
+                'Resources to dig deeper': 10,
+                'Keep me in the loop': 2
+            };
+            score += intentScores[answers.q7] || 0;
+
+            // Referral signal bonus
+            if (document.getElementById('q8').value.trim().length > 5) score += 10;
+
+            return score;
+        }
+
+        function getRouting(score) {
+            if (score >= 80) return {
+                track: 'Priority Outreach',
+                tag: 'Priority Outreach',
+                tagClass: 'tag-hot',
+                headline: 'Expect a personal message — soon.',
+                body: "Based on what you shared, a Fierce team member will reach out personally within 24 hours. We'll be referencing exactly what you told us — so the conversation starts where this session left off.",
+                next: "In the meantime, check your inbox for a resource on the specific challenge you named."
+            };
+            if (score >= 45) return {
+                track: 'Nurture Sequence',
+                tag: 'Leadership Sequence',
+                tagClass: 'tag-nurture',
+                headline: 'We hear you. Watch your inbox.',
+                body: "You'll receive a short series of Fierce resources tailored to the challenge you described — practical, no fluff. When the timing is right for you, we'll be ready.",
+                next: "If something shifts and you want to talk sooner, reply to any email from us."
+            };
+            return {
+                track: 'Newsletter',
+                tag: 'Fierce Newsletter',
+                tagClass: 'tag-newsletter',
+                headline: 'Great to have you here.',
+                body: "We'll keep you in the loop on upcoming Fierce Pulse Learning sessions, new content, and leadership insights from the field. No pressure, no pitch — just good stuff in your inbox.",
+                next: "Come back when the timing is right. We'll be here."
+            };
+        }
+
+        // Submit
+        async function submitSurvey() {
+            // Validation
+            if (!answers.q1 || !answers.q2 || !answers.q3 || !answers.q4 || !answers.q5 || !answers.q7) {
+                alert('Please answer all required questions (marked with *) before submitting.');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const score = computeRouting();
+            const routing = getRouting(score);
+
+            // Get HubSpot tracking cookie
+            function getHubSpotCookie() {
+                const name = 'hubspotutk';
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            }
+
+            // Get page URI safely
+            let pageUri;
+            try {
+                pageUri = window.top.location.href;
+            } catch (e) {
+                pageUri = window.location.href;
+            }
+
+            const hutk = getHubSpotCookie();
+            const formData = {
+                fields: [
+                    { name: 'role', value: answers.q1 },
+                    { name: 'org_size', value: answers.q2 },
+                    { name: 'pain_point', value: answers.q3 },
+                    { name: 'urgency', value: answers.q4 },
+                    { name: 'session_score', value: String(answers.q5) },
+                    { name: 'open_takeaway', value: document.getElementById('q6').value.trim() },
+                    { name: 'next_step_intent', value: answers.q7 },
+                    { name: 'referral_mention', value: document.getElementById('q8').value.trim() },
+                    { name: 'routing_score', value: String(score) },
+                    { name: 'routing_track', value: routing.track }
+                ],
+                context: {
+                    ...(hutk && { hutk: hutk }),
+                    pageUri: pageUri,
+                    pageName: 'Fierce Pulse Learning Post-Session Survey'
+                },
+                skipValidation: true
+            };
+
+            try {
+                const response = await fetch(HUBSPOT_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Show thank-you
+                    document.getElementById('survey-form').style.display = 'none';
+                    document.querySelector('.progress-wrap').style.display = 'none';
+                    const ty = document.getElementById('thank-you');
+                    ty.style.display = 'block';
+                    document.getElementById('ty-headline').textContent = routing.headline;
+                    document.getElementById('ty-body').textContent = routing.body;
+                    document.getElementById('ty-next').textContent = routing.next;
+                    const tagEl = document.getElementById('ty-tag');
+                    tagEl.textContent = routing.tag;
+                    tagEl.className = 'routing-tag ' + routing.tagClass;
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    console.error('HubSpot submission error:', response.status);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                alert('Network error. Please check your connection and try again.');
+            }
+        }
+
+        // Animate cards on load
+        document.querySelectorAll('.q-card').forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(16px)';
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 + i * 60);
+        });
+    </script>
+</body>
+</html>
