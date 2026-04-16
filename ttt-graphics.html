@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teach The Teacher Graphics - Fierce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            min-height: 100vh;
+            background: #1a1a1a;
+            padding: 60px 40px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        h2 {
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .graphic-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ========== LINKEDIN GRAPHIC (1200x627) ========== */
+        .linkedin-graphic {
+            width: 1200px;
+            height: 627px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .linkedin-graphic .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('ttt-stock-image.jpeg');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .linkedin-graphic .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(105deg, rgba(14, 14, 14, 0.95) 0%, rgba(14, 14, 14, 0.92) 55%, rgba(14, 14, 14, 0.4) 70%, transparent 85%);
+            z-index: 1;
+        }
+
+        .linkedin-graphic .content {
+            position: absolute;
+            top: 50%;
+            left: 70px;
+            transform: translateY(-50%);
+            z-index: 10;
+            max-width: 680px;
+        }
+
+        .linkedin-graphic .tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .linkedin-graphic .headline {
+            font-family: 'DM Serif Display', serif;
+            font-size: 64px;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .linkedin-graphic .headline .gradient {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .linkedin-graphic .headline .white {
+            color: #ffffff;
+        }
+
+        .linkedin-graphic .subhead {
+            font-family: 'DM Serif Display', serif;
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .linkedin-graphic .description {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            max-width: 520px;
+        }
+
+        .linkedin-graphic .logo {
+            position: absolute;
+            bottom: 40px;
+            left: 70px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            color: #ffffff;
+            z-index: 10;
+        }
+
+        .linkedin-graphic .accent-line {
+            position: absolute;
+            top: 40px;
+            left: 70px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .linkedin-graphic .accent-line .solid {
+            width: 40px;
+            height: 3px;
+            background: #eb7525;
+        }
+
+        .linkedin-graphic .accent-line .fade {
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #eb7525, transparent);
+        }
+
+        /* ========== NEWSLETTER BANNER (600x200) ========== */
+        .newsletter-banner {
+            width: 600px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-banner .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('ttt-stock-image.jpeg');
+            background-size: cover;
+            background-position: center 30%;
+            z-index: 0;
+        }
+
+        .newsletter-banner .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(100deg, rgba(14, 14, 14, 0.95) 0%, rgba(14, 14, 14, 0.9) 50%, rgba(14, 14, 14, 0.3) 75%, transparent 90%);
+            z-index: 1;
+        }
+
+        .newsletter-banner .content {
+            position: absolute;
+            top: 50%;
+            left: 36px;
+            transform: translateY(-50%);
+            z-index: 10;
+            max-width: 380px;
+        }
+
+        .newsletter-banner .headline {
+            font-family: 'DM Serif Display', serif;
+            font-size: 32px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-banner .headline .gradient {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .newsletter-banner .headline .white {
+            color: #ffffff;
+        }
+
+        .newsletter-banner .subhead {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            font-style: italic;
+        }
+
+        .newsletter-banner .logo {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            font-family: 'DM Serif Display', serif;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            z-index: 10;
+        }
+
+        .newsletter-banner .accent-line {
+            position: absolute;
+            top: 20px;
+            left: 36px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .newsletter-banner .accent-line .solid {
+            width: 24px;
+            height: 2px;
+            background: #eb7525;
+        }
+
+        .newsletter-banner .accent-line .fade {
+            width: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, #eb7525, transparent);
+        }
+
+        /* ========== LINKEDIN SQUARE (1080x1080) ========== */
+        .linkedin-square {
+            width: 1080px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .linkedin-square .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('ttt-stock-image.jpeg');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .linkedin-square .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(14, 14, 14, 0.4) 0%, rgba(14, 14, 14, 0.85) 50%, rgba(14, 14, 14, 0.98) 100%);
+            z-index: 1;
+        }
+
+        .linkedin-square .content {
+            position: absolute;
+            bottom: 80px;
+            left: 70px;
+            right: 70px;
+            z-index: 10;
+        }
+
+        .linkedin-square .tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 12px 24px;
+            border-radius: 4px;
+            margin-bottom: 28px;
+        }
+
+        .linkedin-square .headline {
+            font-family: 'DM Serif Display', serif;
+            font-size: 72px;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .linkedin-square .headline .gradient {
+            background: linear-gradient(90deg, #f5a623, #eb7525, #d45f10);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .linkedin-square .headline .white {
+            color: #ffffff;
+        }
+
+        .linkedin-square .subhead {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            margin-bottom: 28px;
+        }
+
+        .linkedin-square .description {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .linkedin-square .logo {
+            position: absolute;
+            top: 50px;
+            left: 70px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #ffffff;
+            z-index: 10;
+        }
+
+        .linkedin-square .accent-line {
+            position: absolute;
+            top: 50px;
+            right: 70px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .linkedin-square .accent-line .fade {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(270deg, #eb7525, transparent);
+        }
+
+        .linkedin-square .accent-line .solid {
+            width: 50px;
+            height: 3px;
+            background: #eb7525;
+        }
+
+        /* Dimensions label */
+        .dimensions {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- LINKEDIN GRAPHIC (1200x627) -->
+    <div class="graphic-container">
+        <h2>LinkedIn Feed Image</h2>
+        <div class="linkedin-graphic">
+            <div class="bg-image"></div>
+            <div class="overlay"></div>
+
+            <div class="accent-line">
+                <div class="solid"></div>
+                <div class="fade"></div>
+            </div>
+
+            <div class="content">
+                <div class="tag">Now Expanded</div>
+                <h1 class="headline">
+                    <span class="gradient">Teach The Teacher</span>
+                </h1>
+                <p class="subhead">The workplace is changing and so are we.</p>
+                <p class="description">We've expanded the TTT program to reflect what leaders are actually navigating today — in real teams, real organizations, and a workforce that looks nothing like it did five years ago.</p>
+            </div>
+
+            <div class="logo">Fierce</div>
+        </div>
+        <p class="dimensions">1200 x 627px</p>
+    </div>
+
+    <!-- NEWSLETTER BANNER (600x200) -->
+    <div class="graphic-container">
+        <h2>Newsletter Banner</h2>
+        <div class="newsletter-banner">
+            <div class="bg-image"></div>
+            <div class="overlay"></div>
+
+            <div class="accent-line">
+                <div class="solid"></div>
+                <div class="fade"></div>
+            </div>
+
+            <div class="content">
+                <h1 class="headline">
+                    <span class="gradient">Teach The Teacher</span><br>
+                    <span class="white" style="font-size: 20px;">The workplace is changing and so are we.</span>
+                </h1>
+            </div>
+
+            <div class="logo">Fierce</div>
+        </div>
+        <p class="dimensions">600 x 200px</p>
+    </div>
+
+    <!-- LINKEDIN SQUARE (1080x1080) -->
+    <div class="graphic-container">
+        <h2>LinkedIn Square Post</h2>
+        <div class="linkedin-square">
+            <div class="bg-image"></div>
+            <div class="overlay"></div>
+
+            <div class="logo">Fierce</div>
+
+            <div class="accent-line">
+                <div class="fade"></div>
+                <div class="solid"></div>
+            </div>
+
+            <div class="content">
+                <div class="tag">Now Expanded</div>
+                <h1 class="headline">
+                    <span class="gradient">Teach The Teacher</span>
+                </h1>
+                <p class="subhead">The workplace is changing and so are we.</p>
+                <p class="description">We've expanded the TTT program to reflect what leaders are actually navigating today — in real teams, real organizations, and a workforce that looks nothing like it did five years ago.</p>
+            </div>
+        </div>
+        <p class="dimensions">1080 x 1080px</p>
+    </div>
+</body>
+</html>
