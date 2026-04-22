@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Fierce Inc//Fierce Pulse Learning//EN
+PRODID:-//Fierce Inc//Fierce Learning Series//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
@@ -8,7 +8,7 @@ DTSTART:20260417T150000Z
 DTEND:20260417T153000Z
 DTSTAMP:20260414T120000Z
 UID:fierce-pulse-learning-20260417@fierceinc.com
-SUMMARY:Fierce Pulse Learning
+SUMMARY:Fierce Learning Series
 DESCRIPTION:A 30-minute experiential leadership session from Fierce Inc. Zoom link will be sent separately.
 LOCATION:Zoom (link to follow)
 STATUS:CONFIRMED
