@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're Registered — Fierce Pulse Learning | Fierce, Inc.</title>
-    <meta name="description" content="You're registered for Fierce Pulse Learning. See you Friday, April 17th at 11:00am ET.">
+    <meta name="description" content="You're registered for Fierce Pulse Learning. Check your email for session details.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -142,18 +142,24 @@
             margin-bottom: 4px;
         }
 
-        .session-date {
+        .session-topic {
             font-family: var(--font-serif);
             font-size: 24px;
             color: var(--color-text);
             letter-spacing: -0.02em;
         }
 
-        .session-time {
+        .session-date {
             font-size: 16px;
+            color: var(--color-text);
+            margin-top: 4px;
+        }
+
+        .session-time {
+            font-size: 15px;
             color: var(--color-accent);
             font-weight: 500;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .expect-list {
@@ -312,8 +318,9 @@
                     </div>
                     <div class="session-details">
                         <div class="session-label">Your Session</div>
-                        <div class="session-date">Friday, April 17th</div>
-                        <div class="session-time">11:00am ET</div>
+                        <div class="session-topic" id="sessionTopic"></div>
+                        <div class="session-date" id="sessionDate"></div>
+                        <div class="session-time" id="sessionTime"></div>
                     </div>
                 </div>
 
@@ -367,22 +374,43 @@
     </footer>
 
     <script>
+        // Session data
+        const SESSIONS = {
+            may1: {
+                date: 'Friday, May 1st',
+                time: '11:00am ET',
+                topic: 'Feedback',
+                calendarStart: '20260501T150000Z',
+                calendarEnd: '20260501T153000Z'
+            },
+            may15: {
+                date: 'Friday, May 15th',
+                time: '11:00am ET',
+                topic: 'Change Management',
+                calendarStart: '20260515T150000Z',
+                calendarEnd: '20260515T153000Z'
+            }
+        };
+
+        // Get session from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionKey = urlParams.get('session') || 'may1';
+        const session = SESSIONS[sessionKey] || SESSIONS.may1;
+
+        // Populate session details
+        document.getElementById('sessionTopic').textContent = session.topic;
+        document.getElementById('sessionDate').textContent = session.date;
+        document.getElementById('sessionTime').textContent = session.time;
+
         // Add to Calendar functionality
         document.getElementById('addToCalendar').addEventListener('click', (e) => {
             e.preventDefault();
 
-            // Event details
-            const title = 'Fierce Pulse Learning';
+            const title = `Fierce Pulse Learning: ${session.topic}`;
             const description = 'A 30-minute experiential leadership session from Fierce, Inc. Zoom link will be sent separately.';
             const location = 'Zoom (link to follow)';
 
-            // April 17th, 2026 at 11:00am ET (UTC-4 during DST)
-            // Convert to UTC: 11:00 ET = 15:00 UTC
-            const startDate = '20260417T150000Z';
-            const endDate = '20260417T153000Z'; // 30 minutes later
-
-            // Generate Google Calendar URL
-            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${session.calendarStart}/${session.calendarEnd}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
 
             window.open(googleCalendarUrl, '_blank');
         });
