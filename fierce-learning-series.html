@@ -390,8 +390,13 @@
             margin-bottom: 48px;
         }
 
-        /* Session Selector */
-        .session-selector {
+        /* Session Display */
+        .session-display {
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            background: rgba(235, 117, 37, 0.04);
             margin-bottom: 48px;
         }
 
@@ -401,58 +406,25 @@
             color: var(--color-muted);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .session-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .session-option {
-            cursor: pointer;
-        }
-
-        .session-option input {
-            display: none;
-        }
-
-        .session-card {
-            border: 2px solid rgba(14, 14, 14, 0.1);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            background: var(--color-bg);
-            transition: all 0.2s ease;
-        }
-
-        .session-option input:checked + .session-card {
-            border-color: var(--color-accent);
-            background: rgba(235, 117, 37, 0.04);
-        }
-
-        .session-card:hover {
-            border-color: rgba(235, 117, 37, 0.5);
+            margin-bottom: 8px;
         }
 
         .session-topic {
             font-family: var(--font-serif);
-            font-size: 22px;
+            font-size: 28px;
             color: var(--color-text);
             margin-bottom: 8px;
             letter-spacing: -0.02em;
         }
 
         .session-date {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--color-text);
             margin-bottom: 4px;
         }
 
         .session-time {
-            font-size: 15px;
+            font-size: 16px;
             color: var(--color-accent);
             font-weight: 500;
         }
@@ -854,26 +826,12 @@
             <h2 class="rsvp-headline">Reserve your seat</h2>
             <p class="rsvp-subhead">Join us for the next Fierce Learning Series session.</p>
 
-            <div class="session-selector">
-                <div class="session-label">Choose your session</div>
-                <div class="session-options">
-                    <label class="session-option">
-                        <input type="radio" name="session" value="may1" data-date="Friday, May 1st" data-time="11:00am ET" data-topic="Feedback" checked>
-                        <div class="session-card">
-                            <div class="session-topic">Feedback</div>
-                            <div class="session-date">Friday, May 1st</div>
-                            <div class="session-time">11:00am ET</div>
-                        </div>
-                    </label>
-                    <label class="session-option">
-                        <input type="radio" name="session" value="may15" data-date="Friday, May 15th" data-time="11:00am ET" data-topic="Change Management">
-                        <div class="session-card">
-                            <div class="session-topic">Change Management</div>
-                            <div class="session-date">Friday, May 15th</div>
-                            <div class="session-time">11:00am ET</div>
-                        </div>
-                    </label>
-                </div>
+            <div class="session-display">
+                <div class="session-label">Next Session</div>
+                <div class="session-topic">Feedback</div>
+                <div class="session-date">Friday, May 1st</div>
+                <div class="session-time">11:00am ET</div>
+                <input type="hidden" name="session" value="may1">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -998,13 +956,6 @@
                 calendarStart: '20260501T150000Z',
                 calendarEnd: '20260501T153000Z'
             },
-            may15: {
-                date: 'Friday, May 15th',
-                time: '11:00am ET',
-                topic: 'Change Management',
-                calendarStart: '20260515T150000Z',
-                calendarEnd: '20260515T153000Z'
-            }
         };
 
         // Get selected session
