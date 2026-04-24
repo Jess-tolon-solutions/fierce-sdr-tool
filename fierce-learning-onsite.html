@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fierce Learning Series — Free Leadership Workshops | Fierce, Inc.</title>
-    <meta name="description" content="Fierce Learning Series is a free 30-minute virtual session for leaders. One module. One Friday. One conversation that changes how your team works.">
+    <title>Fierce Comes To You — On-Site Leadership Sessions | Fierce, Inc.</title>
+    <meta name="description" content="Bring Fierce to your team. A 30-45 minute on-site leadership session that sparks the conversations your organization needs.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -390,13 +390,8 @@
             margin-bottom: 48px;
         }
 
-        /* Session Display */
-        .session-display {
-            border: 2px solid var(--color-accent);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-            background: rgba(235, 117, 37, 0.04);
+        /* Session Selector */
+        .session-selector {
             margin-bottom: 48px;
         }
 
@@ -406,25 +401,58 @@
             color: var(--color-muted);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .session-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .session-option {
+            cursor: pointer;
+        }
+
+        .session-option input {
+            display: none;
+        }
+
+        .session-card {
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background: var(--color-bg);
+            transition: all 0.2s ease;
+        }
+
+        .session-option input:checked + .session-card {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.04);
+        }
+
+        .session-card:hover {
+            border-color: rgba(235, 117, 37, 0.5);
         }
 
         .session-topic {
             font-family: var(--font-serif);
-            font-size: 28px;
+            font-size: 22px;
             color: var(--color-text);
             margin-bottom: 8px;
             letter-spacing: -0.02em;
         }
 
         .session-date {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--color-text);
             margin-bottom: 4px;
         }
 
         .session-time {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--color-accent);
             font-weight: 500;
         }
@@ -483,6 +511,15 @@
 
         .form-input::placeholder {
             color: var(--color-muted);
+        }
+
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
         }
 
         .error-message {
@@ -679,7 +716,7 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="logo">Fierce</a>
-            <a href="#rsvp" class="btn btn-primary">Reserve your seat</a>
+            <a href="#rsvp" class="btn btn-primary">Request a session</a>
         </div>
     </nav>
 
@@ -713,13 +750,13 @@
         </div>
         <section class="hero">
             <h1 class="hero-headline">
-                The <span class="gradient-text">conversation</span><br>your team isn't having.
+                <span class="gradient-text">Fierce</span> comes to you.
             </h1>
             <p class="hero-subhead">
-                Fierce Learning Series is a free 30-minute virtual session for leaders. One module. One Friday. One conversation that changes how your team works.
+                A bite-sized leadership session, delivered on-site. In 30-45 minutes, your team will experience one of Fierce's conversation frameworks — and leave ready to put it into practice.
             </p>
             <div class="morph-container">
-                <span class="morph-label">This month:</span>
+                <span class="morph-label">Topics include:</span>
                 <span class="morph-word" id="morphWord">
                     <span class="active">Feedback</span>
                     <span>Coaching</span>
@@ -728,7 +765,7 @@
                     <span>Influence</span>
                 </span>
             </div>
-            <a href="#rsvp" class="btn btn-primary">Reserve your seat</a>
+            <a href="#rsvp" class="btn btn-primary">Request a session</a>
         </section>
     </div>
 
@@ -763,7 +800,7 @@
                         <polyline points="24,12 24,24 32,28"/>
                     </svg>
                 </div>
-                <h3 class="expect-label">30 minutes</h3>
+                <h3 class="expect-label">30-45 minutes</h3>
                 <p class="expect-text">A focused, experiential session. No slides. No pitch. Just practice.</p>
             </div>
             <div class="expect-item">
@@ -781,19 +818,16 @@
             <div class="expect-item">
                 <div class="expect-icon">
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="6" y="10" width="36" height="32" rx="2"/>
-                        <line x1="6" y1="18" x2="42" y2="18"/>
-                        <line x1="16" y1="6" x2="16" y2="14"/>
-                        <line x1="32" y1="6" x2="32" y2="14"/>
-                        <line x1="14" y1="26" x2="18" y2="26"/>
-                        <line x1="22" y1="26" x2="26" y2="26"/>
-                        <line x1="30" y1="26" x2="34" y2="26"/>
-                        <line x1="14" y1="34" x2="18" y2="34"/>
-                        <line x1="22" y1="34" x2="26" y2="34"/>
+                        <path d="M24 4 L24 12"/>
+                        <path d="M40 24 L32 24"/>
+                        <path d="M24 44 L24 36"/>
+                        <path d="M8 24 L16 24"/>
+                        <circle cx="24" cy="24" r="8"/>
+                        <circle cx="24" cy="24" r="16"/>
                     </svg>
                 </div>
-                <h3 class="expect-label">Every Friday</h3>
-                <p class="expect-text">Sessions run on Fridays. Pick the date that works for you.</p>
+                <h3 class="expect-label">On-site</h3>
+                <p class="expect-text">We come to you. A Fierce facilitator delivers the session at your location, on your schedule.</p>
             </div>
         </div>
     </section>
@@ -823,16 +857,8 @@
     <!-- RSVP Section -->
     <section class="rsvp" id="rsvp">
         <div class="form-container" id="formContainer">
-            <h2 class="rsvp-headline">Reserve your seat</h2>
-            <p class="rsvp-subhead">Join us for the next Fierce Learning Series session.</p>
-
-            <div class="session-display">
-                <div class="session-label">Next Session</div>
-                <div class="session-topic">Feedback</div>
-                <div class="session-date">Friday, May 1st</div>
-                <div class="session-time">11:00am ET</div>
-                <input type="hidden" name="session" value="may1">
-            </div>
+            <h2 class="rsvp-headline">Request a session</h2>
+            <p class="rsvp-subhead">Tell us about your team and we'll reach out to schedule.</p>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
                 <div class="form-row">
@@ -852,16 +878,43 @@
                     <input type="email" class="form-input" id="email" name="email" required autocomplete="email">
                     <span class="error-message">Please enter a valid work email</span>
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="company">Company</label>
-                    <input type="text" class="form-input" id="company" name="company" required autocomplete="organization">
-                    <span class="error-message">Please enter your company name</span>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="company">Company</label>
+                        <input type="text" class="form-input" id="company" name="company" required autocomplete="organization">
+                        <span class="error-message">Please enter your company name</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone</label>
+                        <input type="tel" class="form-input" id="phone" name="phone" required autocomplete="tel">
+                        <span class="error-message">Please enter your phone number</span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="title">Title <span class="optional">(optional)</span></label>
-                    <input type="text" class="form-input" id="title" name="title" autocomplete="organization-title">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="attendees">Who is attending?</label>
+                        <select class="form-input" id="attendees" name="attendees" required>
+                            <option value="">Select...</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Small team (2-10)">Small team (2-10)</option>
+                            <option value="Department (11-50)">Department (11-50)</option>
+                            <option value="Large group (50+)">Large group (50+)</option>
+                        </select>
+                        <span class="error-message">Please select an option</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="timeframe">Preferred timeframe</label>
+                        <select class="form-input" id="timeframe" name="timeframe" required>
+                            <option value="">Select...</option>
+                            <option value="Within 2 weeks">Within 2 weeks</option>
+                            <option value="Within 1 month">Within 1 month</option>
+                            <option value="Within 3 months">Within 3 months</option>
+                            <option value="Just exploring">Just exploring</option>
+                        </select>
+                        <span class="error-message">Please select a timeframe</span>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-submit">Reserve my seat</button>
+                <button type="submit" class="btn btn-primary btn-submit">Request a session</button>
             </form>
         </div>
 
@@ -872,19 +925,8 @@
                     <polyline points="20,32 28,40 44,24"/>
                 </svg>
             </div>
-            <h3 class="confirmation-headline">You're in.</h3>
-            <p class="confirmation-text">Check your email for details. We'll see you Friday.</p>
-            <a href="#" class="btn btn-primary" id="addToCalendar" style="margin-top: 24px; display: inline-flex; align-items: center; gap: 10px;">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="14" height="14" rx="1"/>
-                    <line x1="3" y1="8" x2="17" y2="8"/>
-                    <line x1="7" y1="2" x2="7" y2="6"/>
-                    <line x1="13" y1="2" x2="13" y2="6"/>
-                    <line x1="10" y1="11" x2="10" y2="15"/>
-                    <line x1="8" y1="13" x2="12" y2="13"/>
-                </svg>
-                Add to Calendar
-            </a>
+            <h3 class="confirmation-headline">Request received.</h3>
+            <p class="confirmation-text">We'll be in touch soon to schedule your on-site session.</p>
         </div>
     </section>
 
@@ -944,25 +986,8 @@
 
         // HubSpot Forms API configuration
         const HUBSPOT_PORTAL_ID = '21395487';
-        const HUBSPOT_FORM_ID = '2cefd1fb-9cc4-4980-86cd-bf8efaf1a245';
+        const HUBSPOT_FORM_ID = 'YOUR_ONSITE_FORM_ID_HERE'; // Replace with your new HubSpot form ID
         const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
-
-        // Session data
-        const SESSIONS = {
-            may1: {
-                date: 'Friday, May 1st',
-                time: '11:00am ET',
-                topic: 'Feedback',
-                calendarStart: '20260501T150000Z',
-                calendarEnd: '20260501T153000Z'
-            },
-        };
-
-        // Get selected session
-        function getSelectedSession() {
-            const selected = document.querySelector('input[name="session"]');
-            return SESSIONS[selected.value];
-        }
 
         // Form validation and submission
         const form = document.getElementById('rsvpForm');
@@ -981,6 +1006,8 @@
             if (input.required) {
                 if (input.type === 'email') {
                     isValid = validateEmail(input.value);
+                } else if (input.tagName === 'SELECT') {
+                    isValid = input.value !== '';
                 } else {
                     isValid = input.value.trim() !== '';
                 }
@@ -997,16 +1024,22 @@
             return isValid;
         }
 
-        // Real-time validation on blur
+        // Real-time validation on blur and change
         const inputs = form.querySelectorAll('.form-input');
         inputs.forEach(input => {
             input.addEventListener('blur', () => {
-                if (input.value.trim() !== '' || input.required) {
+                if ((input.tagName === 'SELECT' ? input.value !== '' : input.value.trim() !== '') || input.required) {
                     validateField(input);
                 }
             });
 
             input.addEventListener('input', () => {
+                if (input.classList.contains('error')) {
+                    validateField(input);
+                }
+            });
+
+            input.addEventListener('change', () => {
                 if (input.classList.contains('error')) {
                     validateField(input);
                 }
@@ -1054,22 +1087,20 @@
                 pageUri = window.location.href;
             }
 
-            const selectedSession = getSelectedSession();
             const formData = {
                 fields: [
                     { name: 'firstname', value: document.getElementById('firstName').value.trim() },
                     { name: 'lastname', value: document.getElementById('lastName').value.trim() },
                     { name: 'email', value: document.getElementById('email').value.trim() },
                     { name: 'company', value: document.getElementById('company').value.trim() },
-                    { name: 'jobtitle', value: document.getElementById('title').value.trim() },
-                    { name: 'session_date', value: selectedSession.date },
-                    { name: 'session_time', value: selectedSession.time },
-                    { name: 'session_topic', value: selectedSession.topic }
+                    { name: 'phone', value: document.getElementById('phone').value.trim() },
+                    { name: 'attendees', value: document.getElementById('attendees').value },
+                    { name: 'timeframe', value: document.getElementById('timeframe').value }
                 ],
                 context: {
                     ...(hutk && { hutk: hutk }),
                     pageUri: pageUri,
-                    pageName: 'Fierce Learning Series Registration'
+                    pageName: 'Fierce On-Site Session Request'
                 },
                 skipValidation: true
             };
@@ -1083,24 +1114,17 @@
                     body: JSON.stringify(formData)
                 });
 
-                const responseText = await response.text();
-
                 if (response.ok) {
-                    // Redirect to thank you page with session info
-                    const sessionInput = document.querySelector('input[name="session"]');
-                    const sessionKey = sessionInput ? sessionInput.value : 'may1';
-                    // Use absolute URL for redirect (works better in iframes)
-                    const currentPath = window.location.pathname;
-                    const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-                    const redirectUrl = window.location.origin + basePath + 'learning-series-thank-you.html?session=' + sessionKey;
-                    window.location.href = redirectUrl;
+                    // Show confirmation
+                    formContainer.classList.add('hidden');
+                    confirmation.classList.add('show');
                 } else {
                     // Handle error response
-                    console.error('HubSpot submission error:', response.status, responseText);
+                    console.error('HubSpot submission error:', response.status);
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
 
-                    // Show error message with details
+                    // Show error message
                     let errorDiv = form.querySelector('.form-error-message');
                     if (!errorDiv) {
                         errorDiv = document.createElement('div');
@@ -1108,16 +1132,7 @@
                         errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
                         form.appendChild(errorDiv);
                     }
-
-                    // Try to parse error details
-                    let errorMsg = 'Something went wrong. Please try again.';
-                    try {
-                        const errorData = JSON.parse(responseText);
-                        if (errorData.message) {
-                            errorMsg = errorData.message;
-                        }
-                    } catch (e) {}
-                    errorDiv.textContent = errorMsg;
+                    errorDiv.textContent = 'Something went wrong. Please try again.';
                 }
             } catch (error) {
                 console.error('Network error:', error);
@@ -1136,22 +1151,6 @@
             }
         });
 
-        // Store selected session for calendar
-        let submittedSession = null;
-
-        // Add to Calendar functionality
-        document.getElementById('addToCalendar').addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const session = submittedSession || getSelectedSession();
-            const title = `Fierce Learning Series: ${session.topic}`;
-            const description = 'A 30-minute experiential leadership session from Fierce, Inc. Zoom link will be sent separately.';
-            const location = 'Zoom (link to follow)';
-
-            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${session.calendarStart}/${session.calendarEnd}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
-
-            window.open(googleCalendarUrl, '_blank');
-        });
     </script>
 </body>
 </html>
