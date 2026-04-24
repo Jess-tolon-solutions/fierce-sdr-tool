@@ -960,7 +960,7 @@
 
         // Get selected session
         function getSelectedSession() {
-            const selected = document.querySelector('input[name="session"]:checked');
+            const selected = document.querySelector('input[name="session"]');
             return SESSIONS[selected.value];
         }
 
@@ -1085,7 +1085,7 @@
 
                 if (response.ok) {
                     // Redirect to thank you page with session info
-                    const sessionKey = document.querySelector('input[name="session"]:checked').value;
+                    const sessionKey = document.querySelector('input[name="session"]').value;
                     window.location.href = `thank-you.html?session=${sessionKey}`;
                 } else {
                     // Handle error response
