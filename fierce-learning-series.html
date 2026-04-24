@@ -1044,6 +1044,22 @@
                 return null;
             }
 
+            // Get UTM parameters from URL
+            function getUtmParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const utmFields = [];
+                const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+                utmKeys.forEach(key => {
+                    const value = urlParams.get(key);
+                    if (value) {
+                        utmFields.push({ name: key, value: value });
+                    }
+                });
+
+                return utmFields;
+            }
+
             // Prepare HubSpot form data
             const hutk = getHubSpotCookie();
             // Get page URI safely (handle cross-origin iframe)
@@ -1055,6 +1071,7 @@
             }
 
             const selectedSession = getSelectedSession();
+            const utmFields = getUtmParams();
             const formData = {
                 fields: [
                     { name: 'firstname', value: document.getElementById('firstName').value.trim() },
@@ -1064,7 +1081,8 @@
                     { name: 'jobtitle', value: document.getElementById('title').value.trim() },
                     { name: 'session_date', value: selectedSession.date },
                     { name: 'session_time', value: selectedSession.time },
-                    { name: 'session_topic', value: selectedSession.topic }
+                    { name: 'session_topic', value: selectedSession.topic },
+                    ...utmFields
                 ],
                 context: {
                     ...(hutk && { hutk: hutk }),
