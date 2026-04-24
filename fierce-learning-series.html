@@ -1083,17 +1083,24 @@
                     body: JSON.stringify(formData)
                 });
 
+                const responseText = await response.text();
+
                 if (response.ok) {
                     // Redirect to thank you page with session info
-                    const sessionKey = document.querySelector('input[name="session"]').value;
-                    window.location.href = `thank-you.html?session=${sessionKey}`;
+                    const sessionInput = document.querySelector('input[name="session"]');
+                    const sessionKey = sessionInput ? sessionInput.value : 'may1';
+                    // Use absolute URL for redirect (works better in iframes)
+                    const currentPath = window.location.pathname;
+                    const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+                    const redirectUrl = window.location.origin + basePath + 'thank-you.html?session=' + sessionKey;
+                    window.location.href = redirectUrl;
                 } else {
                     // Handle error response
-                    console.error('HubSpot submission error:', response.status);
+                    console.error('HubSpot submission error:', response.status, responseText);
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
 
-                    // Show error message
+                    // Show error message with details
                     let errorDiv = form.querySelector('.form-error-message');
                     if (!errorDiv) {
                         errorDiv = document.createElement('div');
@@ -1101,7 +1108,16 @@
                         errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
                         form.appendChild(errorDiv);
                     }
-                    errorDiv.textContent = 'Something went wrong. Please try again.';
+
+                    // Try to parse error details
+                    let errorMsg = 'Something went wrong. Please try again.';
+                    try {
+                        const errorData = JSON.parse(responseText);
+                        if (errorData.message) {
+                            errorMsg = errorData.message;
+                        }
+                    } catch (e) {}
+                    errorDiv.textContent = errorMsg;
                 }
             } catch (error) {
                 console.error('Network error:', error);
