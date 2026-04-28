@@ -907,6 +907,18 @@
           body: formData
         });
 
+        // Handle session expiration
+        if (response.status === 401) {
+          progressContainer.classList.remove('active');
+          alert('Your session has expired. Please log in again.');
+          showLogin();
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error('Server error. Please try again.');
+        }
+
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
@@ -947,7 +959,12 @@
           }
         }
       } catch (err) {
-        progressText.textContent = 'Error: ' + err.message;
+        // Handle network errors with a clearer message
+        if (err.message === 'Failed to fetch') {
+          progressText.textContent = 'Connection error. Please check your internet and try again.';
+        } else {
+          progressText.textContent = 'Error: ' + err.message;
+        }
       } finally {
         generateBtn.disabled = false;
       }
