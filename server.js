@@ -309,7 +309,7 @@ INSTRUCTIONS:
 9. NEVER use em dashes (—)
 10. Sound like a real person who did real research
 ${fierceFriday ? `11. The email body MUST include the registration link (${fierceFriday.link}) as a clickable hyperlink
-12. The LinkedIn DM should mention the session but can direct them to check their email for the link (keep it under 60 words)` : ''}
+12. The LinkedIn DM MUST also include the registration link (${fierceFriday.link}) - keep the DM under 60 words but always include the link` : ''}
 
 Return a JSON object with exactly these fields:
 {
