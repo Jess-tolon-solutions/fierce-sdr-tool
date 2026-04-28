@@ -348,21 +348,75 @@
       font-size: 0.875rem;
       color: var(--gray-600);
       margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .progress-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--gray-300);
+      border-top-color: var(--fierce-orange);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .progress-bar {
-      height: 6px;
+      height: 8px;
       background: var(--gray-200);
-      border-radius: 3px;
+      border-radius: 4px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      background: var(--fierce-orange);
-      border-radius: 3px;
+      border-radius: 4px;
       transition: width 0.3s ease;
       width: 0%;
+      background: linear-gradient(
+        90deg,
+        var(--fierce-orange) 0%,
+        var(--fierce-orange-light) 50%,
+        var(--fierce-orange) 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .progress-container.processing .progress-bar {
+      position: relative;
+    }
+
+    .progress-container.processing .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.1) 20px
+      );
+      animation: moveStripes 0.5s linear infinite;
+    }
+
+    @keyframes moveStripes {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(20px); }
     }
 
     /* Output Cards */
@@ -716,7 +770,10 @@
       </div>
 
       <div class="progress-container" id="progress-container">
-        <p class="progress-text" id="progress-text">Processing contacts...</p>
+        <p class="progress-text">
+          <span class="progress-spinner" id="progress-spinner"></span>
+          <span id="progress-text">Processing contacts...</span>
+        </p>
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
@@ -897,9 +954,10 @@
       // Clear previous results
       cardsContainer.innerHTML = '';
       emptyState.style.display = 'none';
-      progressContainer.classList.add('active');
+      progressContainer.classList.add('active', 'processing');
       progressFill.style.width = '0%';
       generateBtn.disabled = true;
+      document.getElementById('progress-spinner').style.display = 'block';
 
       try {
         const response = await fetch('/api/process-csv', {
@@ -952,8 +1010,12 @@
                 addErrorCard(data.contact, data.error);
               } else if (data.type === 'done') {
                 progressText.textContent = `Completed! ${processed} contacts processed.`;
+                progressContainer.classList.remove('processing');
+                document.getElementById('progress-spinner').style.display = 'none';
               } else if (data.error) {
                 progressText.textContent = data.error;
+                progressContainer.classList.remove('processing');
+                document.getElementById('progress-spinner').style.display = 'none';
               }
             }
           }
@@ -965,6 +1027,8 @@
         } else {
           progressText.textContent = 'Error: ' + err.message;
         }
+        progressContainer.classList.remove('processing');
+        document.getElementById('progress-spinner').style.display = 'none';
       } finally {
         generateBtn.disabled = false;
       }
