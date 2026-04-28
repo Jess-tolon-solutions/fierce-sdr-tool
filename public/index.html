@@ -612,6 +612,19 @@
       margin-bottom: 0.5rem;
     }
 
+    .hook-type-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: var(--gray-700);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     /* Error Card */
     .error-card {
       background: #fef2f2;
@@ -1090,8 +1103,10 @@
                 <p>${escapeHtml(result.research_notes)}</p>
               </div>
               <div class="intel-item">
-                <h4>Hook Used</h4>
-                <p>${escapeHtml(result.hook_used)}</p>
+                <h4>Hook Strategy</h4>
+                <div class="hook-type-badge">${escapeHtml(result.hook_type || 'custom')}</div>
+                <p><strong>Hook:</strong> ${escapeHtml(result.hook_used)}</p>
+                <p style="margin-top: 0.5rem; font-style: italic; color: var(--gray-500);">${escapeHtml(result.hook_rationale || '')}</p>
               </div>
             </div>
           </div>

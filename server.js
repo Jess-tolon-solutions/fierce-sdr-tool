@@ -248,6 +248,54 @@ ${styleNotes ? `ADDITIONAL STYLE NOTES FROM REP:\n${styleNotes}\n` : ''}
 ${fierceFridaySection}
 ${noFierceFridayInstructions}
 
+=== EMAIL STRUCTURE: HOOK → RELEVANCY → CTA ===
+
+Every email MUST follow this proven structure:
+
+1. HOOK (First 1-2 sentences - THIS IS CRITICAL)
+   The hook must grab attention immediately and feel personally relevant. It should NOT be about you or Fierce.
+
+   HOOK PRIORITY ORDER (use the first one that applies):
+   a) NOTES-BASED: If the notes field contains specific context (challenges, goals, past conversations), craft a hook directly tied to that
+   b) TITLE-BASED: Reference a challenge specific to their role (VP of People, CHRO, Director of L&D, etc.)
+   c) INDUSTRY-BASED: Reference a current trend or challenge in their specific industry
+   d) GENERAL LEADERSHIP TREND: Use a compelling question about a universal leadership challenge
+
+   HOOK FORMULAS THAT WORK:
+   - Provocative question: "Is AI giving your managers better feedback than their leaders are?"
+   - Pattern interrupt: "Most leadership training fails within 90 days. The reason isn't what you'd expect."
+   - Stat + implication: "71% of managers report burnout. For [Company], that's not just a wellness issue."
+   - Observation + insight: "Noticed [Company] is scaling fast - usually when communication breaks down."
+   - Trend + question: "With AI handling more tasks, your managers' human skills matter more than ever - are they ready?"
+
+   2026 LEADERSHIP TRENDS TO WEAVE INTO HOOKS:
+   - AI is changing how feedback is delivered - but human conversation skills matter more than ever
+   - Middle managers are burned out (71% report high stress) and influence 70% of employee engagement
+   - Only 10% of employees believe their feedback leads to action (the listening-to-action gap)
+   - Human skills (empathy, clarity, courage) are becoming the differentiator as AI handles technical tasks
+   - 47% of leaders struggle managing multigenerational workforces
+   - Half of employees want more training but aren't getting support
+
+   BAD HOOKS (NEVER USE):
+   - "I hope this email finds you well"
+   - "My name is X and I work at Fierce"
+   - "I wanted to reach out because..."
+   - "I noticed you work at [Company]" (too generic)
+   - Any opener that sounds like a template or mass email
+
+2. RELEVANCY (2-3 sentences)
+   Connect Fierce's solution to THEIR specific situation. Reference:
+   - Their industry challenges
+   - Their likely pain points based on title
+   - The context from notes
+   - Why THIS matters to THEM right now
+
+3. CTA (1 sentence - clear and low-friction)
+   Make it easy to say yes. Examples:
+   - "Worth 30 minutes to explore?"
+   - "Open to a quick conversation?"
+   - For Fierce Friday: "Grab a spot here: [link]"
+
 INSTRUCTIONS:
 1. Use the company domain to research/infer what the company does
 2. If industry is provided, reference real current trends and pain points in that industry
@@ -265,14 +313,16 @@ ${fierceFriday ? `11. The email body MUST include the registration link (${fierc
 
 Return a JSON object with exactly these fields:
 {
-  "email_subject": "compelling subject line",
-  "email_body": "the full email body",
+  "email_subject": "compelling subject line under 7 words",
+  "email_body": "the full email body following HOOK → RELEVANCY → CTA structure",
   "linkedin_dm": "the LinkedIn direct message",
   "industry_pain_points": ["pain point 1", "pain point 2", "pain point 3"],
   "recommended_module": "which Fierce program would help most (e.g., Fierce Conversations, Fierce Feedback, Fierce Accountability, Fierce Coaching, Team Fierce)",
   "module_rationale": "why this module fits their situation",
   "research_notes": "what you inferred about the company and contact",
-  "hook_used": "the specific hook or angle you led with"
+  "hook_type": "notes-based OR title-based OR industry-based OR trend-based",
+  "hook_used": "the exact opening hook sentence(s) you used",
+  "hook_rationale": "why this hook was chosen for this specific contact"
 }
 
 Respond with ONLY the JSON object, no other text.`;
