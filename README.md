@@ -67,4 +67,4 @@ Upload a CSV with the following columns:
 - Fierce module recommendations
 - Real-time streaming results
 - One-click copy to clipboard
-- Fierce Friday promotion integration
+- Fierce Learning Series promotion integration

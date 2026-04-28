@@ -200,7 +200,7 @@ KEY MESSAGE: "Let us redefine what is possible, one conversation at a time."
 Use these themes naturally in your outreach - don't copy verbatim, but weave in the relevant points based on their industry and situation.` : '';
 
   const fierceFridaySection = fierceFriday ? `
-FIERCE FRIDAY SESSION (PRIMARY CTA):
+FIERCE LEARNING SERIES SESSION (PRIMARY CTA):
 This is the main goal of your outreach. You are EXCLUSIVELY inviting them to a free 30-minute virtual session.
 - Topic: ${fierceFriday.topic}
 - Date: ${fierceFriday.date}
@@ -294,7 +294,7 @@ Every email MUST follow this proven structure:
    Make it easy to say yes. Examples:
    - "Worth 30 minutes to explore?"
    - "Open to a quick conversation?"
-   - For Fierce Friday: "Grab a spot here: [link]"
+   - For Fierce Learning Series: "Grab a spot here: [link]"
 
 INSTRUCTIONS:
 1. Use the company domain to research/infer what the company does
