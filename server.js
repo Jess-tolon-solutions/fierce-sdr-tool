@@ -15,6 +15,15 @@ const PORT = process.env.PORT || 3000;
 const sessions = new Map();
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
+// Rep UTM tracking links
+const REP_LINKS = {
+  'Alex': 'https://hubs.li/Q04dr9h50',
+  'Elli': 'https://hubs.li/Q04dr9gb0',
+  'Mason': 'https://hubs.li/Q04dr9gY0',
+  'Madi': 'https://hubs.li/Q04dr94G0',
+  'Ralph': 'https://hubs.li/Q04dr94v0'
+};
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
@@ -80,7 +89,10 @@ app.post('/api/process-csv', requireAuth, upload.single('csv'), async (req, res)
     return res.status(400).json({ error: 'No CSV file uploaded' });
   }
 
-  const { repName, tone, styleNotes, ffTopic, ffDate, ffDescription, ffLink } = req.body;
+  const { repName, tone, styleNotes, ffTopic, ffDate, ffDescription } = req.body;
+
+  // Get rep-specific UTM link
+  const repLink = REP_LINKS[repName] || null;
 
   // Set headers for SSE
   res.setHeader('Content-Type', 'text/event-stream');
@@ -134,7 +146,7 @@ app.post('/api/process-csv', requireAuth, upload.single('csv'), async (req, res)
           repName,
           tone,
           styleNotes,
-          fierceFriday: ffTopic ? { topic: ffTopic, date: ffDate, description: ffDescription, link: ffLink } : null
+          fierceFriday: ffTopic && repLink ? { topic: ffTopic, date: ffDate, description: ffDescription, link: repLink } : null
         });
 
         res.write(`data: ${JSON.stringify({

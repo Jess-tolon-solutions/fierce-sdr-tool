@@ -712,8 +712,15 @@
         <div class="sidebar-section">
           <div class="sidebar-section-title">Your Info</div>
           <div class="form-group">
-            <label class="form-label" for="rep-name">Your Name *</label>
-            <input type="text" class="form-input" id="rep-name" placeholder="e.g., Sarah Johnson" required>
+            <label class="form-label" for="rep-name">Select Rep *</label>
+            <select class="form-select" id="rep-name" required>
+              <option value="">Choose your name...</option>
+              <option value="Alex">Alex</option>
+              <option value="Elli">Elli</option>
+              <option value="Madi">Madi</option>
+              <option value="Mason">Mason</option>
+              <option value="Ralph">Ralph</option>
+            </select>
           </div>
         </div>
 
@@ -752,10 +759,7 @@
               <label class="form-label" for="ff-description">One-Line Description</label>
               <input type="text" class="form-input" id="ff-description" placeholder="e.g., Learn to give feedback that actually lands">
             </div>
-            <div class="form-group">
-              <label class="form-label" for="ff-link">Registration Link</label>
-              <input type="url" class="form-input" id="ff-link" placeholder="https://...">
-            </div>
+            <p class="form-hint" style="margin-top: 0.5rem; color: var(--fierce-orange);">Registration link auto-generated based on selected rep</p>
           </div>
         </div>
 
@@ -962,7 +966,6 @@
       formData.append('ffTopic', document.getElementById('ff-topic').value);
       formData.append('ffDate', document.getElementById('ff-date').value);
       formData.append('ffDescription', document.getElementById('ff-description').value);
-      formData.append('ffLink', document.getElementById('ff-link').value);
 
       // Clear previous results
       cardsContainer.innerHTML = '';
@@ -1073,9 +1076,14 @@
               <div class="content-label">Email Body</div>
               <div class="content-text">${escapeHtml(result.email_body)}</div>
             </div>
-            <button class="copy-btn" data-copy="email" data-subject="${escapeAttr(result.email_subject)}" data-body="${escapeAttr(result.email_body)}">
-              📋 Copy Email
-            </button>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button class="copy-btn" data-copy="email" data-subject="${escapeAttr(result.email_subject)}" data-body="${escapeAttr(result.email_body)}">
+                📋 Copy Email
+              </button>
+              <button class="copy-btn copy-html-btn" data-copy="email-html" data-subject="${escapeAttr(result.email_subject)}" data-body="${escapeAttr(result.email_body)}">
+                📧 Copy for HubSpot
+              </button>
+            </div>
           </div>
           <div class="tab-panel" data-panel="linkedin">
             <div class="content-section">
@@ -1128,21 +1136,51 @@
 
       // Copy buttons
       card.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          let text;
-          if (btn.dataset.copy === 'email') {
-            text = `Subject: ${btn.dataset.subject}\n\n${btn.dataset.body}`;
-          } else {
-            text = btn.dataset.text;
-          }
-          navigator.clipboard.writeText(text).then(() => {
+        btn.addEventListener('click', async () => {
+          const originalText = btn.innerHTML;
+
+          if (btn.dataset.copy === 'email-html') {
+            // Copy as HTML for HubSpot - converts URLs to clickable links
+            const body = btn.dataset.body;
+            const htmlBody = body.replace(
+              /(https?:\/\/[^\s]+)/g,
+              '<a href="$1">$1</a>'
+            ).replace(/\n/g, '<br>');
+
+            const html = `<p>${htmlBody}</p>`;
+            const blob = new Blob([html], { type: 'text/html' });
+            const textBlob = new Blob([body], { type: 'text/plain' });
+
+            try {
+              await navigator.clipboard.write([
+                new ClipboardItem({
+                  'text/html': blob,
+                  'text/plain': textBlob
+                })
+              ]);
+              btn.classList.add('copied');
+              btn.innerHTML = '✓ Copied!';
+            } catch (err) {
+              // Fallback to plain text if HTML copy fails
+              await navigator.clipboard.writeText(body);
+              btn.classList.add('copied');
+              btn.innerHTML = '✓ Copied!';
+            }
+          } else if (btn.dataset.copy === 'email') {
+            const text = `Subject: ${btn.dataset.subject}\n\n${btn.dataset.body}`;
+            await navigator.clipboard.writeText(text);
             btn.classList.add('copied');
             btn.innerHTML = '✓ Copied!';
-            setTimeout(() => {
-              btn.classList.remove('copied');
-              btn.innerHTML = btn.dataset.copy === 'email' ? '📋 Copy Email' : '📋 Copy Message';
-            }, 2000);
-          });
+          } else {
+            await navigator.clipboard.writeText(btn.dataset.text);
+            btn.classList.add('copied');
+            btn.innerHTML = '✓ Copied!';
+          }
+
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = originalText;
+          }, 2000);
         });
       });
 
