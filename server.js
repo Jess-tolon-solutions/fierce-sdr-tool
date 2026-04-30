@@ -250,51 +250,42 @@ ${noFierceFridayInstructions}
 
 === EMAIL STRUCTURE: HOOK → RELEVANCY → CTA ===
 
-Every email MUST follow this proven structure:
+Every email MUST follow this structure. Keep it SHORT (under 75 words total).
 
-1. HOOK (First 1-2 sentences - THIS IS CRITICAL)
-   The hook must grab attention immediately and feel personally relevant. It should NOT be about you or Fierce.
+1. HOOK (FIRST SENTENCE - MUST BE A DIRECT QUESTION)
+   The very first sentence MUST be a bold, direct question about feedback or leadership challenges.
+   NO statements. NO "With AI..." openers. Start with a QUESTION.
 
-   HOOK PRIORITY ORDER (use the first one that applies):
-   a) NOTES-BASED: If the notes field contains specific context (challenges, goals, past conversations), craft a hook directly tied to that
-   b) TITLE-BASED: Reference a challenge specific to their role (VP of People, CHRO, Director of L&D, etc.)
-   c) INDUSTRY-BASED: Reference a current trend or challenge in their specific industry
-   d) GENERAL LEADERSHIP TREND: Use a compelling question about a universal leadership challenge
+   GREAT HOOK EXAMPLES (use these as templates):
+   - "How do your managers deliver tough feedback?"
+   - "Do you think quarterly feedback is actually landing with your team?"
+   - "When was the last time a leader on your team had a conversation they'd been avoiding?"
+   - "What happens at ${contact.company} when feedback gets delayed?"
+   - "Are your managers having the conversations that matter, or avoiding them?"
+   - "How many crucial conversations are your leaders putting off right now?"
+   - "Is feedback at ${contact.company} happening in real-time, or just during reviews?"
+   - "What's the cost when your managers avoid difficult conversations?"
 
-   HOOK FORMULAS THAT WORK:
-   - Provocative question: "Is AI giving your managers better feedback than their leaders are?"
-   - Pattern interrupt: "Most leadership training fails within 90 days. The reason isn't what you'd expect."
-   - Stat + implication: "71% of managers report burnout. For [Company], that's not just a wellness issue."
-   - Observation + insight: "Noticed [Company] is scaling fast - usually when communication breaks down."
-   - Trend + question: "With AI handling more tasks, your managers' human skills matter more than ever - are they ready?"
+   HOOK PRIORITY (tailor the question based on):
+   a) NOTES: If notes mention specific challenges, ask about THAT
+   b) INDUSTRY: Ask about feedback challenges specific to their industry
+   c) TITLE: Ask about challenges specific to their role
+   d) GENERAL: Ask a universal question about feedback or conversations
 
-   2026 LEADERSHIP TRENDS TO WEAVE INTO HOOKS:
-   - AI is changing how feedback is delivered - but human conversation skills matter more than ever
-   - Middle managers are burned out (71% report high stress) and influence 70% of employee engagement
-   - Only 10% of employees believe their feedback leads to action (the listening-to-action gap)
-   - Human skills (empathy, clarity, courage) are becoming the differentiator as AI handles technical tasks
-   - 47% of leaders struggle managing multigenerational workforces
-   - Half of employees want more training but aren't getting support
-
-   BAD HOOKS (NEVER USE):
+   BANNED OPENERS (NEVER START WITH THESE):
+   - "With AI handling..." or any variation
+   - "In today's fast-paced..." or any variation
    - "I hope this email finds you well"
-   - "My name is X and I work at Fierce"
-   - "I wanted to reach out because..."
-   - "I noticed you work at [Company]" (too generic)
-   - Any opener that sounds like a template or mass email
+   - "I wanted to reach out..."
+   - "I noticed..."
+   - "As a [title]..."
+   - Any statement - MUST be a question
 
-2. RELEVANCY (2-3 sentences)
-   Connect Fierce's solution to THEIR specific situation. Reference:
-   - Their industry challenges
-   - Their likely pain points based on title
-   - The context from notes
-   - Why THIS matters to THEM right now
+2. RELEVANCY (1-2 sentences MAX)
+   Briefly connect the session to their situation. Keep it tight.
 
-3. CTA (1 sentence - clear and low-friction)
-   Make it easy to say yes. Examples:
-   - "Worth 30 minutes to explore?"
-   - "Open to a quick conversation?"
-   - For Fierce Learning Series: "Grab a spot here: [link]"
+3. CTA (1 sentence with the link)
+   Invite them to the session with the registration link.
 
 INSTRUCTIONS:
 1. Use the company domain to research/infer what the company does
@@ -303,7 +294,7 @@ INSTRUCTIONS:
 4. Read the notes field carefully - look for names of previous reps who worked this contact and acknowledge them by name
 5. If a previous rep is mentioned, open with something like "You spoke with [Name] a while back..." then transition to the invite
 6. Write as ${repName} - first person, authentic voice
-7. Keep email under 120 words
+7. Keep email under 75 words - be concise
 8. Keep LinkedIn DM under 60 words
 9. NEVER use "I hope this finds you well" or any generic opener
 9. NEVER use em dashes (—)
